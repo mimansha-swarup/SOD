@@ -12,7 +12,7 @@ const CalendarShimmer = () => {
           <div
             key={day}
             className={
-              "text-xs w-[30px] h-[8px] mb-1 text-center  animate-pulse bg-gray-300 rounded-xl"
+              "text-xs w-[30px] h-[12px] mb-1 text-center  animate-pulse bg-gray-300 rounded-xl"
             }
           />
         ))}
