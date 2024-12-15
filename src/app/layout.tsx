@@ -25,9 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}  flex text-eclipse`}
       >
-        {children}
+        <div className="w-[425px] m-auto">{children}</div>
       </body>
     </html>
   );
