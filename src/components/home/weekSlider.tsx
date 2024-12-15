@@ -56,10 +56,8 @@ const WeekSlider = () => {
 
   return (
     <div key="weekslider" className="flex flex-col">
-      <div
-        key="days"
-        className="flex justify-between w-[calc(100%-46px)] mx-auto"
-      >
+      <div key="days" className="flex justify-between w-full mx-auto">
+        <div className="w-[16px]" />
         {days?.map((day, idx) => (
           <p
             key={day}
@@ -70,6 +68,7 @@ const WeekSlider = () => {
             {day}
           </p>
         ))}
+        <div className="w-[16px]" />
       </div>
       <div key="date" className="flex justify-between w-full items-center">
         <Button

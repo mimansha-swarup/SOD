@@ -4,10 +4,8 @@ import React from "react";
 const CalendarShimmer = () => {
   return (
     <div key="shimmer-weekslider" className="flex flex-col">
-      <div
-        key="shimmer-days"
-        className="flex justify-between w-[calc(100%-46px)] mx-auto"
-      >
+      <div key="shimmer-days" className="flex justify-between w-full mx-auto">
+        <div className="w-[16px] " />
         {days.map((day) => (
           <div
             key={day}
@@ -16,6 +14,7 @@ const CalendarShimmer = () => {
             }
           />
         ))}
+        <div className="w-[16px] animate-pulse" />
       </div>
       <div
         key="shimmer-date"
