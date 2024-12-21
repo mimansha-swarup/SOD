@@ -22,8 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable}  flex text-eclipse`}>
-        <div className="w-[425px] m-auto">{children}</div>
+      <body className={`${roboto.style.fontFamily}  flex text-eclipse`}>
+        <div className="w-[425px] m-auto py-4 p-4">{children}</div>
       </body>
     </html>
   );

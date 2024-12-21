@@ -1,10 +1,12 @@
 import HomeContainer from "@/container/home";
+import SignupContainer from "@/container/signup";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="py-4 p-4">
+    <main>
       <HomeContainer />
+      {/* <SignupContainer /> */}
     </main>
   );
 }

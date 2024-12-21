@@ -37,7 +37,7 @@ const HomeContainer = () => {
       </div>
 
       <div className="flex mb-8 gap-2">
-        {["metric", "kpi"].map((el) => (
+        {["metric", "kpi", "skill"].map((el) => (
           <div
             key={el}
             className={`rounded-lg px-4 py-1 ${
@@ -51,10 +51,12 @@ const HomeContainer = () => {
         ))}
       </div>
 
-      <div className="w-full mb-4">
+      <div className="w-full mb-6">
         <WeekSlider />
       </div>
-      <RadarChart data={dummyData} options={dummyOptions} />
+      <div className="mb-4">
+        <RadarChart data={dummyData} options={dummyOptions} />
+      </div>
 
       <Button className="bg-gradient-to-r from-turquoise to-eden w-full">
         Track Metrics
