@@ -1,7 +1,12 @@
+"use client";
+import React from "react";
 import WeekSlider from "@/components/home/weekSlider";
 import { Button } from "@/components/ui/button";
 import RadarChart from "@/components/home/RadarChart";
-import React from "react";
+import StoreProvider from "@/app/StateProvider";
+
+import TrackButton from "@/components/home/TrackButton";
+import ShowBS from "@/components/shared/ShowBS";
 
 const dummyData = {
   labels: ["Comments", "Post", ["Connection", "Request"]],
@@ -31,37 +36,38 @@ const dummyOptions = {
 };
 const HomeContainer = () => {
   return (
-    <div>
-      <div className="flex mb-4">
-        <p className="text-eclipse text-xl font-bold">Hello, Mimansha!</p>
-      </div>
+    <StoreProvider>
+      <div className="relative">
+        <div className="flex mb-4">
+          <p className="text-eclipse text-xl font-bold">Hello, Mimansha!</p>
+        </div>
 
-      <div className="flex mb-8 gap-2">
-        {["metric", "kpi", "skill"].map((el) => (
-          <div
-            key={el}
-            className={`rounded-lg px-4 py-1 ${
-              el === "metric"
-                ? "bg-eden text-white"
-                : "bg-neutral-100 text-eclipse"
-            }`}
-          >
-            {el}
-          </div>
-        ))}
-      </div>
+        <div className="flex mb-8 gap-2">
+          {["metric", "kpi", "skill"].map((el) => (
+            <div
+              key={el}
+              className={`rounded-lg px-4 py-1 ${
+                el === "metric"
+                  ? "bg-eden text-white"
+                  : "bg-neutral-100 text-eclipse"
+              }`}
+            >
+              {el}
+            </div>
+          ))}
+        </div>
+        <ShowBS />
 
-      <div className="w-full mb-6">
-        <WeekSlider />
-      </div>
-      <div className="mb-4">
-        <RadarChart data={dummyData} options={dummyOptions} />
-      </div>
+        <div className="w-full mb-6">
+          <WeekSlider />
+        </div>
+        <div className="mb-4">
+          <RadarChart data={dummyData} options={dummyOptions} />
+        </div>
 
-      <Button className="bg-gradient-to-r from-turquoise to-eden w-full">
-        Track Metrics
-      </Button>
-    </div>
+        <TrackButton />
+      </div>
+    </StoreProvider>
   );
 };
 
