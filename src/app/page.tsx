@@ -1,4 +1,4 @@
-import HomeContainer from "@/container/home";
+import HomeContainer from "@/container/tracker";
 import SignupContainer from "@/container/signup";
 import Image from "next/image";
 

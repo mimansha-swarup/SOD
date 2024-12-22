@@ -1,4 +1,4 @@
-import Tracker from "@/components/home/Tracker";
+import Tracker from "@/components/tracker/Tracker";
 
 export const enum SheetPosition {
   FULL = 0,
@@ -21,5 +21,3 @@ export const enum SHEETS_NAME {
 export const SHEETS = {
   [SHEETS_NAME.TRACKER]: Tracker,
 };
-
-

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import WeekSlider from "@/components/home/weekSlider";
+import WeekSlider from "@/components/tracker/weekSlider";
 import { Button } from "@/components/ui/button";
-import RadarChart from "@/components/home/RadarChart";
+import RadarChart from "@/components/tracker/RadarChart";
 import StoreProvider from "@/app/StateProvider";
 
-import TrackButton from "@/components/home/TrackButton";
+import TrackButton from "@/components/tracker/TrackButton";
 import ShowBS from "@/components/shared/ShowBS";
 
 const dummyData = {
@@ -34,7 +34,7 @@ const dummyOptions = {
     },
   },
 };
-const HomeContainer = () => {
+const TrackerContainer = () => {
   return (
     <StoreProvider>
       <div className="relative">
@@ -71,4 +71,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default TrackerContainer;
