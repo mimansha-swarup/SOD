@@ -1,10 +1,5 @@
-export enum TRACKER {
-  METRIC = "metric",
-  SKILLS = "skills",
-  KPI = "kpi",
+export const enum TRACKER {
+  METRIC = "Metric",
+  SKILLS = "Skills",
+  KPI = "KPI",
 }
-
-export type TrackerInitialStateType = {
-  selectedTracker: `${TRACKER}`;
-  tracker: Record<string, any>;
-};

@@ -27,16 +27,6 @@ const TrackButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
         <MenubarTrigger asChild>
           <Button
             className="bg-eden px-2.5 rounded-full"
-            // onClick={() =>
-            //   dispatch(
-            //     addBottomSheet({
-            //       sheetName: SHEETS_NAME.TRACKER,
-            //       props: {},
-            //       title: `Track your ${"Metrics"}`,
-            //       initialPosition: SheetHeight[SheetPosition.QUARTER],
-            //     })
-            //   )
-            // }
           >
             <Plus height={16} width={16} />
           </Button>

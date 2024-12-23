@@ -1,6 +1,8 @@
-import { BottomSheetInitialStateType, BottomSheetObjectType } from "@/types/bottomsheet";
+import {
+  BottomSheetInitialStateType,
+  BottomSheetObjectType,
+} from "@/types/bottomsheet";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 
 const initialState: BottomSheetInitialStateType = {
   bottomSheets: [],
