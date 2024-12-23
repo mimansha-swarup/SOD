@@ -6,6 +6,7 @@ import {
   getStartOfTheWeek,
   generateWeek,
   compareDates,
+  greaterThanToday,
 } from "@/utils/calendar";
 import DateChip from "./dateChip";
 import CalendarShimmer from "../shimmers/calendar";
@@ -84,6 +85,7 @@ const WeekSlider = () => {
             handleClick={onSelect(day)}
             dateObject={day}
             isSelected={compareDates(day, selectedDate)}
+            disabled={greaterThanToday(today, day)}
           />
         ))}
         <Button

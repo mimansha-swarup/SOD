@@ -30,3 +30,9 @@ export const formatDate = (date: number) => {
 
 export const compareDates = (date1: Date, date2: Date) =>
   date1.getTime() === date2.getTime();
+
+export const greaterThanToday = (today: Date, date: Date) => {
+  
+  return date.getTime() > today.getTime();
+};
+
