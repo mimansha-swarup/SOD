@@ -8,6 +8,9 @@ export interface BottomSheetProps {
   className?: string;
 }
 
+export type BottomSheetInitialStateType = {
+  bottomSheets: BottomSheetObjectType[];
+};
 export interface DragEvent {
   point: { x: number; y: number };
   offset: { x: number; y: number };

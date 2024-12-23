@@ -1,6 +1,4 @@
-import HomeContainer from "@/container/tracker";
-import SignupContainer from "@/container/signup";
-import Image from "next/image";
+import HomeContainer from "@/container/home";
 
 export default function Home() {
   return (
