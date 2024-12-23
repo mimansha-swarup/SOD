@@ -1,6 +1,7 @@
 import { trackersList } from "@/constants/tracker";
 import { cn } from "@/lib/utils";
 import { TRACKER } from "@/types/tracker";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings } from "lucide-react";
 import React from "react";
 
@@ -12,24 +13,30 @@ const TrackerList = ({
   setSelectedTracker: (tracker: TRACKER) => void;
 }) => {
   return (
-    <div className="flex justify-between mt-3 mb-6 border-b border-neutral-200 pb-2">
-      <div className="flex text-xs  gap-2">
-        {trackersList.map((el) => (
-          <div
-            key={el}
-            className={cn(
-              "rounded-lg px-3 py-1",
-              el === selectedTracker
-                ? "bg-eden text-white"
-                : "bg-neutral-100 text-eclipse"
-            )}
-            onClick={() => setSelectedTracker(el)}
-          >
-            {el?.toUpperCase()}
-          </div>
-        ))}
-      </div>
-      <Settings height={16} width={16} />
+    <div className="flex flex-col-reverse mb-6  pb-2">
+      <Tabs
+        defaultValue={selectedTracker}
+        onValueChange={(value) => setSelectedTracker(value as TRACKER)}
+        className=" mx-auto"
+      >
+        <TabsList className="bg-neutral-100">
+          {trackersList.map((el) => (
+            <TabsTrigger
+              key={el}
+              value={el}
+              className={cn(
+                "rounded-lg px-3 py-1 text-xs",
+                el === selectedTracker
+                  ? "bg-eden text-white data-[state=active]:bg-eden data-[state=active]:text-white"
+                  : "text-eclipse data-[state=active]:bg-eden data-[state=active]:text-white"
+              )}
+            >
+              {el?.toUpperCase()}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+      <Settings height={16} width={16} className="ml-auto" />
     </div>
   );
 };
