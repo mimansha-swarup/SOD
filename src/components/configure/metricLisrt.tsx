@@ -12,18 +12,15 @@ import { Button } from "../ui/button";
 const MetricList = () => {
   return (
     <div>
-      <Accordion type="multiple">
+      <Accordion type="multiple" defaultValue={[trackerData[0].name]}>
         {trackerData.map((tracker) => (
-          <AccordionItem
-            value={tracker.name}
-            defaultValue={trackerData[0].name}
-          >
+          <AccordionItem key={tracker.name} value={tracker.name}>
             <AccordionTrigger className="text-base font-[20px]">
               {tracker.name}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-3">
               {tracker.list.map((item) => (
-                <div className="flex items-center">
+                <div key={item.name} className="flex items-center">
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 mb-auto rounded-full"
