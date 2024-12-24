@@ -12,6 +12,7 @@ import DateChip from "./dateChip";
 import CalendarShimmer from "../shimmers/calendar";
 import { days } from "@/constants/calendar";
 import classNames from "classnames";
+import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
 
 const WeekSlider = () => {
   const today = new Date();
@@ -58,18 +59,18 @@ const WeekSlider = () => {
   return (
     <div key="weekslider" className="flex flex-col">
       <div key="days" className="flex justify-between w-full mx-auto">
-        <div className="w-[16px]" />
+        <div className="w-[24px]" />
         {days?.map((day, idx) => (
           <p
             key={day}
-            className={classNames("text-xs w-[30px] text-center font-[10px]", {
+            className={classNames("text-xs w-[33px] text-center font-[10px]", {
               "text-red-500": idx === 0 || idx === days.length - 1,
             })}
           >
             {day}
           </p>
         ))}
-        <div className="w-[16px]" />
+        <div className="w-[24px]" />
       </div>
       <div key="date" className="flex justify-between w-full items-center">
         <Button
@@ -77,7 +78,7 @@ const WeekSlider = () => {
           className="p-1 text-eclipse"
           onClick={onPrevClick}
         >
-          {"<"}
+          <ChevronLeftCircle />
         </Button>
         {weeks?.[weekIndex]?.map((day) => (
           <DateChip
@@ -93,7 +94,7 @@ const WeekSlider = () => {
           className="p-1 text-eclipse"
           onClick={onNextClick}
         >
-          {">"}
+          <ChevronRightCircle />
         </Button>
       </div>
     </div>

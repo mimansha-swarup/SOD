@@ -33,7 +33,7 @@ const Navbar = () => {
                     : "text-gray-500 hover:text-primary hover:bg-gray-50"
                 )}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-5 h-5" />
                 {isActive && (
                   <span className="text-xs font-medium">{item.label}</span>
                 )}

@@ -25,10 +25,8 @@ const TrackButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
     <Menubar className="bg-eden p-0 rounded-full w-fit fixed bottom-16 right-4">
       <MenubarMenu>
         <MenubarTrigger asChild>
-          <Button
-            className="bg-eden px-2.5 rounded-full"
-          >
-            <Plus height={16} width={16} />
+          <Button className="bg-eden h-[36px] w-[36px] rounded-full">
+            <Plus height={24} width={24} />
           </Button>
         </MenubarTrigger>
         <MenubarContent side="top" className="min-w-14 mr-4">

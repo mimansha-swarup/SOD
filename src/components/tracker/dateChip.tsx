@@ -27,8 +27,8 @@ const DateChip: FC<DateChipProps> = ({
         disabled && "text-neutral-400 cursor-not-allowed"
       )}
     >
-      <p className="text-xs ">{month}</p>
-      <p className="text-sm ">{formatDate(day)}</p>
+      <p className="text-sm ">{month}</p>
+      <p>{formatDate(day)}</p>
     </div>
   );
 };
