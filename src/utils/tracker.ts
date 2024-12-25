@@ -14,7 +14,7 @@ export function createMappingData(
     datasets: [
       {
         data: trackerList.map(
-          (item) => item?.value || randomNumberGenerator(10)
+          () => randomNumberGenerator(10)
         ),
         backgroundColor: trackerList.map((item) => `${item.color}30`),
         borderColor: trackerList.map((item) => item.color),
