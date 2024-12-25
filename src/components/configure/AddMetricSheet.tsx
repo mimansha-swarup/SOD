@@ -27,10 +27,10 @@ const INITIAL_METRIC_STATE = {
 
 type metricDataType = typeof INITIAL_METRIC_STATE;
 const AddMetricSheet = ({
-  mode,
+  mode = "add" as const,
   metricData = {},
 }: {
-  mode: keyof typeof TRACKER_MODE;
+  mode?: keyof typeof TRACKER_MODE;
   metricData?: Record<string, any>;
 }) => {
   const [metricName, setMetricName] = useState({
