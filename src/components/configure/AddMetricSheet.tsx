@@ -28,10 +28,10 @@ const INITIAL_METRIC_STATE = {
 type metricDataType = typeof INITIAL_METRIC_STATE;
 const AddMetricSheet = ({
   mode,
-  ...metricData
+  metricData = {},
 }: {
   mode: keyof typeof TRACKER_MODE;
-  metricData: Record<string, unknown>;
+  metricData?: Record<string, any>;
 }) => {
   const [metricName, setMetricName] = useState({
     ...INITIAL_METRIC_STATE,
@@ -41,8 +41,10 @@ const AddMetricSheet = ({
   useEffect(() => {
     if (mode === TRACKER_MODE.edit) {
       setMetricName({
-        ...metricData,
         threshold: metricData.maxValue,
+        name: metricData.name,
+        color: metricData.color,
+        type: metricData.type,
       });
     }
   }, [mode]);
