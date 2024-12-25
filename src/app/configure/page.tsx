@@ -1,6 +1,6 @@
 "use client";
-import MetricList from "@/components/configure/metricLisrt";
-import TrackButton from "@/components/tracker/TrackButton";
+import MetricList from "@/components/configure/metricList";
+import AddMetricButton from "@/components/configure/AddMetricButton";
 import { TRACKER } from "@/types/tracker";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,11 +16,11 @@ const ConfigurePage = () => {
         <ChevronLeft onClick={() => router.back()} />
         Configure
       </div>
-      <MetricList />
-
       <StoreProvider>
+        <MetricList />
+
         <ShowBS />
-        <TrackButton selectedTracker={TRACKER.METRIC} />
+        <AddMetricButton selectedTracker={TRACKER.METRIC} />
       </StoreProvider>
     </div>
   );

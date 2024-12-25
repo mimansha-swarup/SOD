@@ -1,3 +1,4 @@
+import AddMetricSheet from "@/components/configure/AddMetricSheet";
 import Tracker from "@/components/tracker/Tracker";
 
 export const enum SheetPosition {
@@ -17,7 +18,9 @@ export const SheetHeight = {
 
 export const enum SHEETS_NAME {
   TRACKER = "TRACKER",
+  ADD_METRIC = "ADD_METRIC",
 }
 export const SHEETS = {
   [SHEETS_NAME.TRACKER]: Tracker,
+  [SHEETS_NAME.ADD_METRIC]: AddMetricSheet,
 };

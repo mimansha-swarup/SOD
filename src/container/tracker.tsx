@@ -1,41 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import WeekSlider from "@/components/tracker/weekSlider";
-import { Button } from "@/components/ui/button";
-import RadarChart from "@/components/tracker/RadarChart";
 import StoreProvider from "@/app/StateProvider";
-
-import TrackButton from "@/components/tracker/TrackButton";
 import ShowBS from "@/components/shared/ShowBS";
 import { TRACKER } from "@/types/tracker";
 import TrackerList from "@/components/tracker/TrackerList";
+import { createMappingData } from "@/utils/tracker";
+import { trackerData } from "@/constants/tracker";
+import BarChart from "@/components/tracker/BarChart";
+import TrackerButton from "@/components/tracker/TrackerButton";
+const trackerRecord = trackerData;
 
-const dummyData = {
-  labels: ["Comments", "Post", ["Connection", "Request"]],
-  datasets: [
-    {
-      label: "Daily Metrics",
-
-      data: [20, 10, 4],
-      backgroundColor: "#FF606020",
-      pointBackgroundColor: "#FF6060",
-      borderColor: "#FF7B7B",
-      borderWidth: 1,
-    },
-  ],
-};
-
-const dummyOptions = {
-  scales: {
-    r: {
-      // angleLines: {
-      //   display: false,
-      // },
-      suggestedMin: 0,
-      suggestedMax: 20,
-    },
-  },
-};
 const TrackerContainer = () => {
   const [trackerData, setTrackerData] = useState({
     selectedTracker: TRACKER.METRIC,
@@ -46,6 +21,11 @@ const TrackerContainer = () => {
     setTrackerData({ ...trackerData, selectedTracker: tracker });
   };
 
+  const [options, record] = createMappingData(
+    trackerData.selectedTracker,
+    trackerRecord[trackerData.selectedTracker]
+  );
+  console.log("record", record);
   return (
     <StoreProvider>
       <div className="relative">
@@ -58,11 +38,10 @@ const TrackerContainer = () => {
         <div className="w-full mb-6">
           <WeekSlider />
         </div>
-        <div className="mb-4">
-          <RadarChart data={dummyData} options={dummyOptions} />
+        <div className="mb-6">
+          <BarChart data={record} options={options} />
         </div>
-
-        <TrackButton selectedTracker={trackerData.selectedTracker} />
+        <TrackerButton selectedTracker={trackerData.selectedTracker} />
       </div>
     </StoreProvider>
   );

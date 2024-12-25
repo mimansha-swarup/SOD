@@ -1,33 +1,27 @@
 "use client";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Radar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
   Tooltip,
   Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  ChartData,
+  ChartOptions,
 } from "chart.js";
-import { ChartData, ChartOptions } from "chart.js";
 import RadarShimmer from "../shimmers/radar";
 
-ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
-interface RadarChartProps {
-  data: ChartData<"radar">;
-  options: ChartOptions<"radar">;
+interface BarChartProps {
+  data: ChartData<"bar">;
+  options: ChartOptions<"bar">;
 }
 
-const RadarChart: React.FC<RadarChartProps> = ({ data, options }) => {
+const BarChart: React.FC<BarChartProps> = ({ data, options }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,7 +38,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ data, options }) => {
     setLoading(false);
   };
   if (loading) return <RadarShimmer />;
-  return <Radar data={data} options={options} />;
+  return <Bar style={{ height: "350px" }} data={data} options={options} />;
 };
 
-export default RadarChart;
+export default BarChart;

@@ -17,9 +17,9 @@ import {
   SHEETS_NAME,
 } from "@/constants/bottomsheet";
 import { TRACKER } from "@/types/tracker";
-import { trackersList } from "@/constants/tracker";
+import { TRACKER_MODE, trackersList } from "@/constants/tracker";
 
-const TrackButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
+const AddMetricButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
   const dispatch = useAppDispatch();
   return (
     <Menubar className="bg-eden p-0 rounded-full w-fit fixed bottom-16 right-4">
@@ -36,9 +36,9 @@ const TrackButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
               onClick={() =>
                 dispatch(
                   addBottomSheet({
-                    sheetName: SHEETS_NAME.TRACKER,
-                    props: { selectedTracker },
-                    title: `Track your ${tracker}`,
+                    sheetName: SHEETS_NAME.ADD_METRIC,
+                    props: { mode: TRACKER_MODE.add },
+                    title: `Add ${tracker}`,
                     initialPosition: SheetHeight[SheetPosition.QUARTER],
                   })
                 )
@@ -53,4 +53,4 @@ const TrackButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
   );
 };
 
-export default TrackButton;
+export default AddMetricButton;
