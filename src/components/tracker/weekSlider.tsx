@@ -21,6 +21,45 @@ const WeekSlider = () => {
   const [weeks, setWeeks] = useState<Date[][]>([]);
   const [weekIndex, setWeekIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState(today);
+  const [startX, setStartX] = useState(0); // Track initial touch position
+  const [endX, setEndX] = useState(0); // Track final touch position
+  const [isSwiping, setIsSwiping] = useState(false); // Track if it's a swipe gesture
+
+  // Handle touch start
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setStartX(e.touches[0].clientX);
+    setIsSwiping(false); // Reset swiping state
+  };
+
+  // Handle touch move
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const currentX = e.touches[0].clientX;
+    const diffX = Math.abs(currentX - startX);
+    if (diffX > 10) {
+      setIsSwiping(true); // Mark as swiping if movement exceeds threshold
+    }
+  };
+
+  // Handle touch end
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isSwiping) {
+      return; // Handle tap/click logic here
+    }
+
+    setEndX(e.changedTouches[0].clientX);
+    determineSwipeDirection();
+  };
+
+  // Determine swipe direction
+  const determineSwipeDirection = () => {
+    const diffX = endX - startX;
+
+    if (diffX > 40) {
+      onPrevClick();
+    } else if (diffX < -40) {
+      onNextClick();
+    }
+  };
 
   const createWeeks = (currentDate: Date) => {
     const startOfTheWeek = getStartOfTheWeek(currentDate);
@@ -48,6 +87,7 @@ const WeekSlider = () => {
     }
   };
 
+
   const onSelect = (date: Date) => () => {
     setSelectedDate(date);
   };
@@ -59,7 +99,6 @@ const WeekSlider = () => {
   return (
     <div key="weekslider" className="flex flex-col">
       <div key="days" className="flex justify-between w-full mx-auto">
-        <div className="w-[24px]" />
         {days?.map((day, idx) => (
           <p
             key={day}
@@ -70,12 +109,17 @@ const WeekSlider = () => {
             {day}
           </p>
         ))}
-        <div className="w-[24px]" />
       </div>
-      <div key="date" className="flex justify-between w-full items-center">
-        <Button variant={"ghost"} className="p-1 " onClick={onPrevClick}>
+      <div
+        key="date"
+        className="flex justify-between w-full items-center"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* <Button variant={"ghost"} className="p-1 " onClick={onPrevClick}>
           <ChevronLeftCircle />
-        </Button>
+        </Button> */}
         {weeks?.[weekIndex]?.map((day) => (
           <DateChip
             key={day.toString()}
@@ -85,9 +129,9 @@ const WeekSlider = () => {
             disabled={greaterThanToday(today, day)}
           />
         ))}
-        <Button variant={"ghost"} className="p-1 " onClick={onNextClick}>
+        {/* <Button variant={"ghost"} className="p-1 " onClick={onNextClick}>
           <ChevronRightCircle />
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

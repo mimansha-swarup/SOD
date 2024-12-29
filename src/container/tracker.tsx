@@ -38,7 +38,7 @@ const TrackerContainer = () => {
         <div className="w-full mb-6">
           <WeekSlider />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 max-w-[calc(100vw-32px)]">
           <BarChart data={record} options={options} />
         </div>
         <TrackerButton selectedTracker={trackerData.selectedTracker} />

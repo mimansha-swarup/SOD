@@ -40,7 +40,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, options }) => {
   if (loading) return <RadarShimmer />;
   return (
     <Bar
-      // style={{ height: "350px", maxWidth: "calc(100vh-32px)" }}
+      style={{ height: "350px", maxWidth: "calc(100vh-32px)" }}
       data={data}
       options={options}
     />
