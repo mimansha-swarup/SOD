@@ -22,18 +22,9 @@ const TrackerList = ({
         onValueChange={(value) => setSelectedTracker(value as TRACKER)}
         className=" mx-auto"
       >
-        <TabsList className="bg-neutral-100">
+        <TabsList>
           {trackersList.map((el) => (
-            <TabsTrigger
-              key={el}
-              value={el}
-              className={cn(
-                "rounded-lg px-3 py-1",
-                el === selectedTracker
-                  ? "bg-eden text-white data-[state=active]:bg-eden data-[state=active]:text-white"
-                  : "text-eclipse data-[state=active]:bg-eden data-[state=active]:text-white"
-              )}
-            >
+            <TabsTrigger key={el} value={el} className="rounded-lg px-3 py-1">
               {el?.toUpperCase()}
             </TabsTrigger>
           ))}

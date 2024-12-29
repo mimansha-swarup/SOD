@@ -24,8 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.style.fontFamily}  flex text-eclipse`}>
-        <div className="w-[425px] m-auto py-4 p-4">{children}</div>
+      <body className={`${roboto.style.fontFamily} dark flex `}>
+        <div className="w-[425px] m-auto py-4 p-4 ">{children}</div>
         <Navbar />
       </body>
     </html>

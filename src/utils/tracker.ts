@@ -13,9 +13,7 @@ export function createMappingData(
     labels: labels,
     datasets: [
       {
-        data: trackerList.map(
-          () => randomNumberGenerator(10)
-        ),
+        data: trackerList.map(() => randomNumberGenerator(10)),
         backgroundColor: trackerList.map((item) => `${item.color}30`),
         borderColor: trackerList.map((item) => item.color),
         borderWidth: 1,

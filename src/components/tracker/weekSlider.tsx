@@ -73,11 +73,7 @@ const WeekSlider = () => {
         <div className="w-[24px]" />
       </div>
       <div key="date" className="flex justify-between w-full items-center">
-        <Button
-          variant={"ghost"}
-          className="p-1 text-eclipse"
-          onClick={onPrevClick}
-        >
+        <Button variant={"ghost"} className="p-1 " onClick={onPrevClick}>
           <ChevronLeftCircle />
         </Button>
         {weeks?.[weekIndex]?.map((day) => (
@@ -89,11 +85,7 @@ const WeekSlider = () => {
             disabled={greaterThanToday(today, day)}
           />
         ))}
-        <Button
-          variant={"ghost"}
-          className="p-1 text-eclipse"
-          onClick={onNextClick}
-        >
+        <Button variant={"ghost"} className="p-1 " onClick={onNextClick}>
           <ChevronRightCircle />
         </Button>
       </div>

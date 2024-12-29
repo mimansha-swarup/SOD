@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,27 +11,12 @@ export default function QuantitySelector() {
 
   return (
     <div className="flex items-center space-x-0 text-salmon font-bold">
-      <Button
-        variant="outline"
-        disabled={!value}
-        onClick={decrement}
-        className="w-8 h-full p-0 flex items-center justify-center"
-      >
-        -
-      </Button>
       <Input
         type="number"
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
         className="w-12 h-8 text-center text-eden"
       />
-      <Button
-        variant="outline"
-        onClick={increment}
-        className="w-8 h-full p-0 flex items-center justify-center"
-      >
-        +
-      </Button>
     </div>
   );
 }

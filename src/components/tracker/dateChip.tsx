@@ -23,8 +23,8 @@ const DateChip: FC<DateChipProps> = ({
       onClick={disabled ? () => {} : handleClick}
       className={cn(
         "flex flex-col px-1 py-1 rounded-lg text-center",
-        isSelected && "bg-neutral-200",
-        disabled && "text-neutral-400 cursor-not-allowed"
+        isSelected && "bg-muted",
+        disabled && "text-muted-foreground cursor-not-allowed"
       )}
     >
       <p className="text-sm ">{month}</p>
