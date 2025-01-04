@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed bottom-4  right-1/2 bg-muted shadow-md shadow-muted-foreground p-1 h-fit w-[85%] rounded-2xl translate-x-1/2  px-4">
+    <nav className="fixed bottom-4  right-1/2 bg-muted shadow-md shadow-muted-foreground p-1 h-fit w-[85%] rounded-2xl translate-x-1/2 ">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex  items-center">
           {navItems.map((item) => {
@@ -28,7 +28,7 @@ const Navbar = () => {
                 href={item.href}
                 className={cn(
                   "flex justify-center items-center gap-1 rounded-lg transition-colors flex-1 ease-in-out text-muted-foreground",
-                  isActive ? "text-secondary bg-primary p-2 rounded-3xl" : ""
+                  isActive ? "text-secondary bg-primary p-2 rounded-2xl" : ""
                 )}
               >
                 <Icon className="size-6" />
