@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.style.fontFamily} flex  `}>
-        <div className="max-w-[425px] m-auto py-4 ">{children}</div>
+        <div className="max-w-[425px] m-auto py-4 w-screen ">{children}</div>
         <Navbar />
       </body>
     </html>
