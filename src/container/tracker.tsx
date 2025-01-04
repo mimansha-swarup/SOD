@@ -9,9 +9,13 @@ import { createMappingData } from "@/utils/tracker";
 import { trackerData } from "@/constants/tracker";
 import BarChart from "@/components/tracker/BarChart";
 import TrackerButton from "@/components/tracker/TrackerButton";
+import PageHeader from "@/components/shared/PageHeader";
+import { Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
 const trackerRecord = trackerData;
 
 const TrackerContainer = () => {
+  const router = useRouter();
   const [trackerData, setTrackerData] = useState({
     selectedTracker: TRACKER.KPI,
     data: {},
@@ -25,11 +29,18 @@ const TrackerContainer = () => {
     trackerData.selectedTracker,
     trackerRecord[trackerData.selectedTracker]
   );
-  console.log("record", record);
+
   return (
     <StoreProvider>
       <div className="relative">
         <ShowBS />
+        <PageHeader
+          title="Tracker"
+          className="mb-6"
+          rightIcon={<Settings />}
+          rightIconClick={() => router.push("/configure")}
+          showBackIcon={false}
+        />
         <TrackerList
           selectedTracker={trackerData.selectedTracker}
           setSelectedTracker={handleTrackerChange}

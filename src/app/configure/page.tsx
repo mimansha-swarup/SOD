@@ -10,13 +10,13 @@ import PageHeader from "@/components/shared/PageHeader";
 const ConfigurePage = () => {
   // const router = useRouter();
   return (
-    <div className="px-4">
+    <div className="px-4 flex flex-col w-full">
       <PageHeader title="Configure" />
       <StoreProvider>
         <MetricList />
 
         <ShowBS />
-        <AddMetricButton selectedTracker={TRACKER.METRIC} />
+        <AddMetricButton selectedTracker={TRACKER.KPI} />
       </StoreProvider>
     </div>
   );

@@ -1,11 +1,8 @@
-"use client";
+
 import { trackersList } from "@/constants/tracker";
-import { cn } from "@/lib/utils";
 import { TRACKER } from "@/types/tracker";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Settings } from "lucide-react";
 import React from "react";
-import { useRouter } from "next/navigation";
 
 const TrackerList = ({
   selectedTracker,
@@ -14,7 +11,6 @@ const TrackerList = ({
   selectedTracker: TRACKER;
   setSelectedTracker: (tracker: TRACKER) => void;
 }) => {
-  const router = useRouter();
   return (
     <div className="flex flex-col-reverse mb-6  pb-2">
       <Tabs
@@ -30,12 +26,6 @@ const TrackerList = ({
           ))}
         </TabsList>
       </Tabs>
-      <Settings
-        height={24}
-        width={24}
-        className="ml-auto"
-        onClick={() => router.push("/configure")}
-      />
     </div>
   );
 };

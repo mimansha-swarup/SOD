@@ -19,8 +19,10 @@ export const SheetHeight = {
 export const enum SHEETS_NAME {
   TRACKER = "TRACKER",
   ADD_METRIC = "ADD_METRIC",
+  MANIFESTATION = "MANIFESTATION",
 }
 export const SHEETS = {
   [SHEETS_NAME.TRACKER]: Tracker,
   [SHEETS_NAME.ADD_METRIC]: AddMetricSheet,
+  [SHEETS_NAME.MANIFESTATION]: <div>Manifestation</div>,
 };
