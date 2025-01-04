@@ -21,7 +21,7 @@ const ShowBS: React.FC<Partial<BottomSheetProps>> = ({
   };
 
   const bs = bsChild[bsChild.length - 1];
-  const Child = bs && SHEETS[bs.sheetName];
+  const Child = bs && SHEETS[bs.sheetName as keyof typeof SHEETS];
   const initialPosition =
     bs?.initialPosition || SheetHeight[SheetPosition.QUARTER];
 

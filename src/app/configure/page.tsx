@@ -10,7 +10,7 @@ import PageHeader from "@/components/shared/PageHeader";
 const ConfigurePage = () => {
   // const router = useRouter();
   return (
-    <div className="px-4 flex flex-col w-full">
+    <div className="px-4 flex flex-col w-screen">
       <PageHeader title="Configure" />
       <StoreProvider>
         <MetricList />
