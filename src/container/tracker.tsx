@@ -13,7 +13,7 @@ const trackerRecord = trackerData;
 
 const TrackerContainer = () => {
   const [trackerData, setTrackerData] = useState({
-    selectedTracker: TRACKER.METRIC,
+    selectedTracker: TRACKER.KPI,
     data: {},
   });
 

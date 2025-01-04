@@ -3,7 +3,7 @@ import React from "react";
 
 const TrackerPage = () => {
   return (
-    <main>
+    <main className="mb-10 px-4">
       <TrackerContainer />
     </main>
   );

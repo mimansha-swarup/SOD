@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./index.css";
 import Navbar from "@/components/shared/Navbar";
 
-const roboto = Roboto({
-  weight: ["400", "500", "700"],
-  style: ["normal", "italic"],
+const font = Readex_Pro({
+  weight: ["200", "300", "400", "500", "600", "700"],
+  style: ["normal"],
   subsets: ["latin"],
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,8 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.style.fontFamily} dark flex `}>
-        <div className="w-[425px] m-auto py-4 p-4 ">{children}</div>
+      <body className={`${font.style.fontFamily} flex  `}>
+        <div className="max-w-[425px] m-auto py-4 ">{children}</div>
         <Navbar />
       </body>
     </html>

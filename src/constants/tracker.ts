@@ -1,6 +1,6 @@
 import { TRACKER } from "@/types/tracker";
 
-export const trackersList = [TRACKER.METRIC, TRACKER.KPI, TRACKER.SKILLS];
+export const trackersList = [ TRACKER.KPI, TRACKER.SKILLS];
 
 export const TRACKER_MODE = {
   add: "add",
@@ -8,32 +8,7 @@ export const TRACKER_MODE = {
 };
 
 export const trackerData = {
-  [TRACKER.METRIC]: [
-    {
-      name: "Sleep Hours",
-      color: "#FFB5E8",
-      date: "2024-01-01",
-      type: "Number",
-    },
-    {
-      name: "Water Goal",
-      color: "#B5DEFF",
-      date: "2024-01-01",
-      type: "Checkbox",
-    },
-    {
-      name: "Daily Exercise",
-      color: "#B5EFB5",
-      date: "2024-01-01",
-      type: "Checkbox",
-    },
-    {
-      name: "Meditation Minutes",
-      color: "#FFE4B5",
-      date: "2024-01-01",
-      type: "Number",
-    },
-  ],
+
   [TRACKER.KPI]: [
     {
       name: "Tasks Completed",

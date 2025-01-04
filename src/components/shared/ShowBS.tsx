@@ -2,7 +2,7 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { popBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
-import { SheetPosition, SHEETS } from "@/constants/bottomsheet";
+import { SheetHeight, SheetPosition, SHEETS } from "@/constants/bottomsheet";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { BottomSheetProps } from "@/types/bottomsheet";
@@ -22,7 +22,8 @@ const ShowBS: React.FC<Partial<BottomSheetProps>> = ({
 
   const bs = bsChild[bsChild.length - 1];
   const Child = bs && SHEETS[bs.sheetName];
-  const initialPosition = bs?.initialPosition || SheetPosition.QUARTER;
+  const initialPosition =
+    bs?.initialPosition || SheetHeight[SheetPosition.QUARTER];
 
   return (
     <Sheet open={Boolean(bs)} onOpenChange={_onClose}>

@@ -9,7 +9,7 @@ const TrackerButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
   const dispatch = useAppDispatch();
   return (
     <Button
-      className="bg-eden text-white w-full"
+      className="text-white w-full"
       onClick={() =>
         dispatch(
           addBottomSheet({

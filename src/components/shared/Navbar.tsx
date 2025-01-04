@@ -15,9 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
-      className="fixed bottom-4  right-1/2 bg-muted py-2 h-fit w-[75%] rounded-3xl translate-x-1/2  px-4"
-    >
+    <nav className="fixed bottom-4  right-1/2 bg-muted shadow shadow-muted-foreground py-2 h-fit w-[75%] rounded-3xl translate-x-1/2  px-4">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex justify-evenly items-center">
           {navItems.map((item) => {

@@ -3,7 +3,7 @@ import React from "react";
 
 const SignUpPage = () => {
   return (
-    <main>
+    <main className="px-4">
       <SignUpContainer />
     </main>
   );
