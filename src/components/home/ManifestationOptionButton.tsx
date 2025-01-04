@@ -31,7 +31,7 @@ const ManifestationOptions = [
 type ManifestationOption = (typeof ManifestationOptions)[number];
 
 const ManifestationOptionButton = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleOptionClick = (option: ManifestationOption) => () => {
     switch (option.label) {
@@ -39,13 +39,14 @@ const ManifestationOptionButton = () => {
         localStorage.setItem("hideManifestation", "true");
         break;
       case "Edit Manifestation":
-        dispatch(
-          addBottomSheet({
-            sheetName: SHEETS_NAME.MANIFESTATION,
-            title: "Edit Manifestation",
-            props: {},
-          })
-        );
+        // dispatch(
+        //   addBottomSheet({
+        //     sheetName: SHEETS_NAME.ADD_METRIC,
+        //     title: "Edit Manifestation",
+        //     props: {},
+        //   })
+        // );
+        console.log("Edit Manifestation");
         break;
     }
   };

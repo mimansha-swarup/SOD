@@ -24,5 +24,7 @@ export const enum SHEETS_NAME {
 export const SHEETS = {
   [SHEETS_NAME.TRACKER]: Tracker,
   [SHEETS_NAME.ADD_METRIC]: AddMetricSheet,
-  [SHEETS_NAME.MANIFESTATION]: <div>Manifestation</div>,
+  // [SHEETS_NAME.MANIFESTATION]: () => {
+  //   return <div>Manifestation</div>;
+  // },
 };
