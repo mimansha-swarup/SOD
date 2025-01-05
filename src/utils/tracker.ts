@@ -7,7 +7,6 @@ export function createMappingData(
   selectedTracker: `${TRACKER}`,
   trackerList: TrackerObjectType[]
 ) {
-  console.log(trackerList);
   const labels = trackerList.map((item) => item.name.split(" "));
   const data = {
     labels: labels,

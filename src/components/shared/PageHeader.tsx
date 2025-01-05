@@ -21,16 +21,16 @@ const PageHeader = ({
   const router = useRouter();
   return (
     <div className={cn("flex  w-full  items-center justify-center", className)}>
-      <div className="mr-auto size-6">
-        {showBackIcon && (
+      {showBackIcon && (
+        <div className="mr-4 size-6">
           <ChevronLeft
             onClick={() => router.back()}
             className="cursor-pointer"
             height={24}
             width={24}
           />
-        )}
-      </div>
+        </div>
+      )}
       <h1 className="text-lg font-bold">{title}</h1>
       <div className="ml-auto size-6" onClick={rightIconClick}>
         {rightIcon}

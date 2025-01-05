@@ -46,7 +46,6 @@ const ManifestationOptionButton = () => {
         //     props: {},
         //   })
         // );
-        console.log("Edit Manifestation");
         break;
     }
   };

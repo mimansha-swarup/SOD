@@ -3,7 +3,7 @@ import MetricList from "@/components/configure/metricList";
 import AddMetricButton from "@/components/configure/AddMetricButton";
 import { TRACKER } from "@/types/tracker";
 import React from "react";
-import StoreProvider from "../StateProvider";
+import StoreProvider from "../../StateProvider";
 import ShowBS from "@/components/shared/ShowBS";
 import PageHeader from "@/components/shared/PageHeader";
 

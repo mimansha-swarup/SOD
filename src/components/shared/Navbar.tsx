@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed bottom-1.5 h-12  right-1/2 backdrop-blur-md border border-foreground/80  bg-background/50 p-1 w-[85%] rounded-2xl translate-x-1/2 ">
+    <nav className="fixed bottom-1.5 h-12  right-1/2 backdrop-blur-md border border-foreground/80  bg-background/80 p-1 w-[85%] rounded-2xl translate-x-1/2 ">
       <div className="max-w-screen-xl mx-auto h-full">
         <div className="flex  items-center h-full">
           {navItems.map((item) => {
