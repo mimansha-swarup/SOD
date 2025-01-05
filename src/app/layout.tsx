@@ -3,6 +3,7 @@ import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./index.css";
 import Navbar from "@/components/shared/Navbar";
+import BgSvg from "@/components/shared/BgSvg";
 
 const font = Readex_Pro({
   weight: ["200", "300", "400", "500", "600", "700"],
@@ -23,9 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.style.fontFamily} flex  `}>
-        <div className="max-w-[425px] m-auto py-4 w-screen ">{children}</div>
+      <body className={`${font.style.fontFamily} flex text-foreground dark `}>
+        <div className="max-w-[425px] m-auto py-4 w-screen o ">{children}</div>
         <Navbar />
+        <BgSvg />
       </body>
     </html>
   );

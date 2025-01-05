@@ -20,8 +20,12 @@ const MetricList = () => {
 
   const record = formatTrackerData(trackerData);
   return (
-    <div className="h-[calc(100vh-120px)] overflow-y-auto">
-      <Accordion type="multiple" defaultValue={[record[0].name]}>
+    <div className="py-6 overflow-y-auto">
+      <Accordion
+        type="multiple"
+        defaultValue={[record[0].name]}
+        className="bg-accent/5 rounded-2xl px-2 backdrop-blur-sm"
+      >
         {record.map((tracker) => (
           <AccordionItem key={tracker.name} value={tracker.name}>
             <AccordionTrigger className="text-base font-[20px]">

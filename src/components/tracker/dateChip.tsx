@@ -24,7 +24,8 @@ const DateChip: FC<DateChipProps> = ({
       className={cn(
         "flex flex-col px-1 py-1 rounded-lg text-center",
         isSelected && "bg-muted",
-        disabled && "text-muted-foreground cursor-not-allowed"
+        disabled &&
+          "text-muted-foreground cursor-not-allowed"
       )}
     >
       <p className="text-sm ">{month}</p>

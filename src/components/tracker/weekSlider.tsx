@@ -87,7 +87,6 @@ const WeekSlider = () => {
     }
   };
 
-
   const onSelect = (date: Date) => () => {
     setSelectedDate(date);
   };

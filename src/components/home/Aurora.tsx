@@ -24,8 +24,7 @@ export const AuroraHero = () => {
     });
   }, []);
 
-  const bg = false ? "#0C0A09" : "#fff";
-  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, ${bg} 50%, ${color})`;
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, transparent 50%, ${color})`;
 
   return (
     <motion.section

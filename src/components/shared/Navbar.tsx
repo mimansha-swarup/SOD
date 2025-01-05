@@ -15,9 +15,9 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed bottom-4  right-1/2 bg-muted shadow-md shadow-muted-foreground p-1 h-fit w-[85%] rounded-2xl translate-x-1/2 ">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex  items-center">
+    <nav className="fixed bottom-1.5 h-12  right-1/2 backdrop-blur-md border border-foreground/80  bg-background/50 p-1 w-[85%] rounded-2xl translate-x-1/2 ">
+      <div className="max-w-screen-xl mx-auto h-full">
+        <div className="flex  items-center h-full">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -27,8 +27,8 @@ const Navbar = () => {
                 key={item.label}
                 href={item.href}
                 className={cn(
-                  "flex justify-center items-center gap-1 rounded-lg transition-colors flex-1 ease-in-out text-muted-foreground",
-                  isActive ? "text-secondary bg-primary p-2 rounded-2xl" : ""
+                  "flex justify-center items-center gap-1 rounded-lg transition-colors flex-1 ease-in-out ",
+                  isActive ? "text-black bg-primary p-2 rounded-xl" : ""
                 )}
               >
                 <Icon className="size-6" />
