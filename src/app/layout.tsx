@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.style.fontFamily} flex text-foreground dark `}>
-        <div className="max-w-[425px] m-auto py-4 w-screen o ">{children}</div>
+        <div className="max-w-[425px] m-auto py-4 w-screen ">
+          {children}
+        </div>
       </body>
     </html>
   );
