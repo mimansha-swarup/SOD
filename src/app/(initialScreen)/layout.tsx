@@ -8,11 +8,11 @@ const Layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main className="overflow-hidden h-screen w-screen">
-      <div className="absolute top-0 right-0  -left-1/2  bottom-0 blur-3xl transform-gpu overflow-hidden ">
+    <main className=" h-screen w-screen">
+      <div className="max-w-[425px] m-auto  w-screen ">{children}</div>
+      <div className="absolute -z-10 top-0 right-0  -left-1/2  bottom-0 blur-3xl transform-gpu overflow-hidden ">
         <div className=" pulse-shape h-screen w-screen bg-gradient-to-tr from-primary to-accent blur-3xl opacity-30 -z-1 animate-pulse-slow" />
       </div>
-      <div className="max-w-[425px] m-auto py-4 w-screen ">{children}</div>
     </main>
   );
 };

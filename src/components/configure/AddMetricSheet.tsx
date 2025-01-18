@@ -100,7 +100,7 @@ const AddMetricSheet = ({
           />
         </div>
       )}
-      <Button className="mt-auto  bg-gradient-to-r from-eclipse to-eden w-full">
+      <Button className="mt-auto  bg-gradient-to-r from-primary to-accent w-full text-black">
         <Plus /> Add
       </Button>
     </div>

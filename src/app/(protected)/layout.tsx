@@ -9,7 +9,7 @@ const Layout = ({
 }>) => {
   return (
     <>
-      <div className="max-w-[425px] m-auto py-4 w-screen o ">{children}</div>
+      <div className="max-w-[425px] m-auto py-4 w-screen ">{children}</div>
       <Navbar />
       <BgSvg />
     </>
