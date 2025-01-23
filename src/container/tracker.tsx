@@ -11,8 +11,6 @@ import { Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/store";
 import { getUsersMetrics } from "@/lib/features/user/user.slice";
-import { Button } from "@/components/ui/button";
-import { createMockCoummnityMetrics } from "@/constants/tracker";
 
 const TrackerContainer = () => {
   const today = new Date();

@@ -1,11 +1,10 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { TRACKER } from "@/types/tracker";
 import { SHEETS_NAME } from "@/constants/bottomsheet";
 import { useAppDispatch } from "@/lib/store";
 import { addBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
 
-const TrackerButton = ({ metricArray }) => {
+const TrackerButton = ({ metricArray }:{metricArray: any[]}) => {
   const dispatch = useAppDispatch();
   return (
     <Button

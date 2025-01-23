@@ -2,7 +2,6 @@ import React from "react";
 
 import PieChart from "@/components/home/DonutChart";
 import { Card, CardTitle } from "@/components/ui/card";
-import { TRACKER } from "@/types/tracker";
 import BentoCard from "./BentoCard";
 
 const Bento = () => {
