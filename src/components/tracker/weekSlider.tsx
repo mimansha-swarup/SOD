@@ -14,13 +14,17 @@ import { days } from "@/constants/calendar";
 import classNames from "classnames";
 import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
 
-const WeekSlider = () => {
+type WeekSliderProps = {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+};
+const WeekSlider = ({ selectedDate, setSelectedDate }: WeekSliderProps) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const [weeks, setWeeks] = useState<Date[][]>([]);
   const [weekIndex, setWeekIndex] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(today);
+  // const [selectedDate, setSelectedDate] = useState(today);
   const [startX, setStartX] = useState(0); // Track initial touch position
   const [endX, setEndX] = useState(0); // Track final touch position
   const [isSwiping, setIsSwiping] = useState(false); // Track if it's a swipe gesture

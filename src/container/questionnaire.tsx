@@ -31,15 +31,11 @@ const QuestionnaireContainer = () => {
   );
 
   const userId = auth.currentUser?.uid;
-  console.log("userId", userId);
+  console.log("userId from questionaire", userId);
 
   useEffect(() => {
     const storage = getSessionStorage({ fieldName: "questionnaire" });
     setRecord(storage || INITIAL_RECORD);
-    (async () => {
-      const a = await getUserData({ uid: userId });
-      console.log("retribing userId", JSON.parse(a));
-    })();
   }, []);
 
   const handleRecordChange =

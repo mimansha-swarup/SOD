@@ -1,3 +1,4 @@
+import { RootState } from "@/lib/store";
 import {
   BottomSheetInitialStateType,
   BottomSheetObjectType,
@@ -25,5 +26,7 @@ const bottomSheetSlice = createSlice({
 });
 
 export const { addBottomSheet, popBottomSheet } = bottomSheetSlice.actions;
+
+export const getBottomSheet = (state: RootState) => state.bottomSheet.bottomSheets 
 
 export default bottomSheetSlice.reducer;

@@ -17,14 +17,13 @@ const Bento = () => {
           <></>
         </BentoCard>
 
-        <BentoCard title={TRACKER.KPI} >
+        <BentoCard title={"kpi"}>
           <PieChart />
         </BentoCard>
 
-        <BentoCard title={TRACKER.SKILLS}>
+        <BentoCard title={"TRACKER.SKILLS"}>
           <PieChart />
         </BentoCard>
-
       </div>
     </div>
   );

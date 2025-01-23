@@ -1,13 +1,11 @@
-import { TRACKER, TrackerObjectType } from "@/types/tracker";
 import { randomNumberGenerator } from "./configure";
 import { ChartData } from "chart.js";
 import { ChartOptions } from "chart.js";
+import { IMetricsArray } from "@/types/feature/user";
 
-export function createMappingData(
-  selectedTracker: `${TRACKER}`,
-  trackerList: TrackerObjectType[]
-) {
+export function createMappingData(trackerList: IMetricsArray[]) {
   const labels = trackerList.map((item) => item.name.split(" "));
+  console.log("labels", labels);
   const data = {
     labels: labels,
     datasets: [
@@ -24,10 +22,11 @@ export function createMappingData(
     responsive: true,
     maintainAspectRatio: false,
     height: Math.max(300, trackerList.length * 100), // Dynamic height based on data
+    
     indexAxis: "y",
     title: {
       display: true,
-      text: `Your ${selectedTracker}`,
+      text: `Your Metrics`,
     },
     scales: {
       x: {

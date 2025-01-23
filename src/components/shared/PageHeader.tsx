@@ -11,19 +11,21 @@ const PageHeader = ({
   rightIconClick,
   className,
   showBackIcon = true,
+  LeftIcon = ChevronLeft,
 }: {
   title: string;
   rightIcon?: React.ReactNode;
   rightIconClick?: () => void;
   className?: string;
   showBackIcon?: boolean;
+  LeftIcon?: any;
 }) => {
   const router = useRouter();
   return (
     <div className={cn("flex  w-full  items-center justify-center", className)}>
       {showBackIcon && (
         <div className="mr-4 size-6">
-          <ChevronLeft
+          <LeftIcon
             onClick={() => router.back()}
             className="cursor-pointer"
             height={24}

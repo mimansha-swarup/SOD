@@ -5,7 +5,7 @@ import { SHEETS_NAME } from "@/constants/bottomsheet";
 import { useAppDispatch } from "@/lib/store";
 import { addBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
 
-const TrackerButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
+const TrackerButton = ({ metricArray }) => {
   const dispatch = useAppDispatch();
   return (
     <Button
@@ -14,13 +14,13 @@ const TrackerButton = ({ selectedTracker }: { selectedTracker: TRACKER }) => {
         dispatch(
           addBottomSheet({
             sheetName: SHEETS_NAME.TRACKER,
-            title: "Track your " + selectedTracker,
-            props: { selectedTracker },
+            title: "Track your metrics",
+            props: { metricArray },
           })
         )
       }
     >
-      Track {selectedTracker}
+      Track Metrics
     </Button>
   );
 };

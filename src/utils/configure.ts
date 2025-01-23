@@ -1,4 +1,3 @@
-import { TRACKER, TrackerType } from "@/types/tracker";
 
 export const generatePastelColor = (): string => {
   // Generate higher base values for lighter colors (pastel)
@@ -16,10 +15,3 @@ export const randomNumberGenerator = (max: number): number => {
   return Math.floor(Math.random() * max);
 };
 
-export const formatTrackerData = (data: TrackerType) => {
-  const keyList = Object.keys(data) as (keyof TrackerType)[];
-  return keyList.map((key) => ({
-    name: key,
-    list: data[key],
-  }));
-};

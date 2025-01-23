@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Plus } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -58,7 +57,7 @@ const AddMetricSheet = ({
   return (
     <div className="px-2 flex flex-col  h-full pb-12 gap-4">
       <div>
-        <Label>Add Metric :</Label>
+        <Label>Metric name :</Label>
         <Input
           className="mt-1"
           placeholder="Commented on a post"
@@ -101,7 +100,7 @@ const AddMetricSheet = ({
         </div>
       )}
       <Button className="mt-auto  bg-gradient-to-r from-primary to-accent w-full text-black">
-        <Plus /> Add
+        Save
       </Button>
     </div>
   );

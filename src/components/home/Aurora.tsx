@@ -9,10 +9,11 @@ import {
 import { Button } from "../ui/button";
 import { Settings2 } from "lucide-react";
 import ManifestationOptionButton from "./ManifestationOptionButton";
+import { cn } from "@/lib/utils";
 
 const COLORS_TOP = ["#DC2626", "#F97316", "#FACC15"];
 
-export const AuroraHero = () => {
+export const AuroraHero = ({ manifestation = "" }) => {
   const color = useMotionValue(COLORS_TOP[0]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const AuroraHero = () => {
   }, []);
 
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, transparent 50%, ${color})`;
-
+  const textSize = manifestation.length > 10 ? "text-2xl" : "text-3xl";
   return (
     <motion.section
       style={{
@@ -35,9 +36,14 @@ export const AuroraHero = () => {
     >
       <ManifestationOptionButton />
       <div className="relative z-10 flex flex-col items-center">
-        <h1 className="max-w-3xl text-secondary-foreground text-center text-3xl font-medium leading-tight  ">
-          {/* sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight */}I
-          want to earn more money
+        <h1
+          className={cn(
+            "max-w-3xl text-secondary-foreground text-center font-medium leading-tight",
+            textSize
+          )}
+        >
+          {/* sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight */}
+          {manifestation}
         </h1>
       </div>
     </motion.section>

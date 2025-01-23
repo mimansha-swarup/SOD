@@ -32,7 +32,16 @@ export const compareDates = (date1: Date, date2: Date) =>
   date1.getTime() === date2.getTime();
 
 export const greaterThanToday = (today: Date, date: Date) => {
-  
   return date.getTime() > today.getTime();
 };
 
+export const createDateKey = (date1: number | Date) => {
+  const date = new Date(date1);
+  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+};
+
+export const getBarChartHeight = (noOfItems = 1) => {
+  const height = noOfItems * 65;
+  return height
+  return height > 300 ? height : 300;
+};

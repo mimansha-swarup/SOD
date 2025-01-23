@@ -3,32 +3,26 @@ import React, { useState } from "react";
 import WeekSlider from "@/components/tracker/weekSlider";
 import StoreProvider from "@/app/StateProvider";
 import ShowBS from "@/components/shared/ShowBS";
-import { TRACKER } from "@/types/tracker";
-import TrackerList from "@/components/tracker/TrackerList";
 import { createMappingData } from "@/utils/tracker";
-import { trackerData } from "@/constants/tracker";
 import BarChart from "@/components/tracker/BarChart";
 import TrackerButton from "@/components/tracker/TrackerButton";
 import PageHeader from "@/components/shared/PageHeader";
 import { Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
-const trackerRecord = trackerData;
+import { useAppSelector } from "@/lib/store";
+import { getUsersMetrics } from "@/lib/features/user/user.slice";
+import { Button } from "@/components/ui/button";
+import { createMockCoummnityMetrics } from "@/constants/tracker";
 
 const TrackerContainer = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const router = useRouter();
-  const [trackerData, setTrackerData] = useState({
-    selectedTracker: TRACKER.KPI,
-    data: {},
-  });
+  const [selectedDate, setSelectedDate] = useState(today);
+  const { data: metricRecord } = useAppSelector(getUsersMetrics);
 
-  const handleTrackerChange = (tracker: TRACKER) => {
-    setTrackerData({ ...trackerData, selectedTracker: tracker });
-  };
-
-  const [options, record] = createMappingData(
-    trackerData.selectedTracker,
-    trackerRecord[trackerData.selectedTracker]
-  );
+  //TODO: change to trackingData
+  const [options, record] = createMappingData(metricRecord?.metrics ?? []);
 
   return (
     <StoreProvider>
@@ -41,18 +35,21 @@ const TrackerContainer = () => {
           rightIconClick={() => router.push("/configure")}
           showBackIcon={false}
         />
-        <TrackerList
-          selectedTracker={trackerData.selectedTracker}
-          setSelectedTracker={handleTrackerChange}
-        />
+        {/* <TrackerList
+          selectedTracker={trackerData}
+        /> */}
 
         <div className="w-full mb-6">
-          <WeekSlider />
+          <WeekSlider
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
         </div>
         <div className="mb-6 max-w-[calc(100vw-32px)]">
           <BarChart data={record} options={options} />
         </div>
-        <TrackerButton selectedTracker={trackerData.selectedTracker} />
+        {/* <Button onClick={createMockCoummnityMetrics}>Create Mock</Button> */}
+        <TrackerButton metricArray={metricRecord?.metrics ?? []} />
       </div>
     </StoreProvider>
   );

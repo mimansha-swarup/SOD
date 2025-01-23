@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
-import { popBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
+import {
+  getBottomSheet,
+  popBottomSheet,
+} from "@/lib/features/bottomsheet/bottomsheet.slice";
 import { SheetHeight, SheetPosition, SHEETS } from "@/constants/bottomsheet";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -12,7 +15,7 @@ const ShowBS: React.FC<Partial<BottomSheetProps>> = ({
   onClose,
   ...restProps
 }) => {
-  const bsChild = useAppSelector((state) => state.bottomSheet.bottomSheets);
+  const bsChild = useAppSelector(getBottomSheet);
   const dispatch = useAppDispatch();
 
   const _onClose = () => {
@@ -37,9 +40,10 @@ const ShowBS: React.FC<Partial<BottomSheetProps>> = ({
         {...restProps}
         key={bs?.sheetName}
       >
-        <SheetTitle className="text-eden mb-6">
+        <SheetTitle className="text-accent mb-6">
           {bs?.title || "Bottom Sheet"}
         </SheetTitle>
+        {/* @ts-ignore */}
         {Child && <Child {...bs.props} />}
       </SheetContent>
     </Sheet>

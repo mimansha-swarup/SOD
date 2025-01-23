@@ -72,7 +72,9 @@ export const createNewUSer = async ({
         email: email,
         profilePicture: photoURL,
         uid: uid,
-        communities: [{ community, communityRef }],
+        communities: [
+          { community, communityRef, questionnaireCompleted: false },
+        ],
       });
       createSubCollectionInNewUser({ uid, docId: community });
     }

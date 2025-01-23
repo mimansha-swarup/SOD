@@ -1,3 +1,4 @@
+import { setAuthCookie } from "@/lib/actions/cookie.action";
 import { createNewUSer } from "@/lib/actions/users.action";
 import { auth } from "@/lib/firebase";
 import {
@@ -8,26 +9,36 @@ import {
 } from "firebase/auth";
 
 export const onGoogleSignIn =
-   ({ community, onSuccessfulLogin }) => async() =>{
+  ({
+    community,
+    onSuccessfulLogin,
+  }: {
+    community: string;
+    onSuccessfulLogin: () => void;
+  }) =>
+  async () => {
+    const token = await googleSignIn();
     const user = auth.currentUser;
     if (user) {
-      console.log("New user shall be created");
       const { displayName, photoURL, email, uid } = user;
       await createNewUSer({ displayName, photoURL, email, uid, community });
-      onSuccessfulLogin?.();
+      await onSuccessfulLogin?.();
     }
 
     return user;
-
-  }
-export const googleSignIn =
-  async () => {
-    setPersistence(auth, browserSessionPersistence).then(() => {
-      const provider = new GoogleAuthProvider();
-      // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-      return signInWithPopup(auth, provider);
-    });
   };
+export const googleSignIn = async () => {
+  const provider = new GoogleAuthProvider();
+
+  await setPersistence(auth, browserSessionPersistence);
+
+  // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+  const result = await signInWithPopup(auth, provider);
+  const token = await result.user.getIdToken();
+
+  setAuthCookie(token);
+  return token;
+};
 
 export const googleSignOut = async () => {
   await auth.signOut();

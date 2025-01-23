@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { googleSignIn, onGoogleSignIn, onSignIn, onSignIn } from "@/utils/auth";
+import { onGoogleSignIn } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 //  add image and text and at bottom only google signin
 const SignUpContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const community = searchParams.get("community") || "SOD";
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSuccessfulLogin = () => {
-    router.push("/questionnaire");
+  const onSuccessfulLogin = async () => {
+    setIsLoading(true);
+    setIsLoading(false);
+    router.push("/");
   };
 
   console.log("router.query", community);
@@ -33,6 +36,7 @@ const SignUpContainer = () => {
 
       <div>
         <Button
+          loading={isLoading}
           onClick={onGoogleSignIn({ community, onSuccessfulLogin })}
           className="py-4 w-full rounded-lg bg-primary "
         >
