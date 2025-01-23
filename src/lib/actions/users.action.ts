@@ -5,7 +5,20 @@ import { User } from "firebase/auth";
 import { FIREBASE_COLLECTION } from "@/constants/firebase";
 import { ICreateUserProps } from "@/types/actions/users";
 
-const createCommunity = async ({ docId, uid }) => {
+type ActionProps = {
+  docId: string;
+  uid: string;
+};
+type UpdateActionProps = {
+  uid: string;
+  community: string;
+  dataToUpdate: any;
+};
+type CreateNewUserProps = {
+  uid: string;
+};
+
+const createCommunity = async ({ docId, uid }: ActionProps) => {
   const communityDocRef = doc(db, FIREBASE_COLLECTION.COMMUNITIES, docId);
   await setDoc(communityDocRef, {
     id: "SOD",
@@ -83,7 +96,10 @@ export const createNewUSer = async ({
   }
 };
 
-export const createSubCollectionInNewUser = async ({ uid, docId }) => {
+export const createSubCollectionInNewUser = async ({
+  uid,
+  docId,
+}: ActionProps) => {
   const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, uid);
   const subCollectionRef = doc(
     collection(userDocRef, FIREBASE_COLLECTION.COMMUNITIES),
@@ -118,7 +134,11 @@ export const createSubCollectionInNewUser = async ({ uid, docId }) => {
   });
 };
 
-export const updateUserCommunity = async ({ uid, community, dataToUpdate }) => {
+export const updateUserCommunity = async ({
+  uid,
+  community,
+  dataToUpdate,
+}: UpdateActionProps) => {
   const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, uid);
   const userCommunityDocRef = doc(
     collection(userDocRef, FIREBASE_COLLECTION.COMMUNITIES),
@@ -127,7 +147,7 @@ export const updateUserCommunity = async ({ uid, community, dataToUpdate }) => {
   await updateDoc(userCommunityDocRef, dataToUpdate);
 };
 
-export const getUserData = async ({ uid }) => {
+export const getUserData = async ({ uid }: CreateNewUserProps) => {
   try {
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, uid);
     const userSnapshot = await getDoc(userDocRef);
