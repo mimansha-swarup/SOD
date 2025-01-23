@@ -56,7 +56,7 @@ const QuestionnaireContainer = () => {
       desiredIncome: record[QuestionnaireIds.GOAL],
     };
     await updateUserCommunity({
-      uid: userId,
+      uid: userId ?? "",
       community: "SOD",
       dataToUpdate: data,
     });
