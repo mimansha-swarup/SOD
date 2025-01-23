@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import QuantitySelector from "../shared/QuantitySelector";
 
-const Tracker = ({ metricArray }) => {
+const Tracker = ({ metricArray }: { metricArray: any[] }) => {
   console.log("metricArray", metricArray);
   // const trackingList = [
   //   { name: "Commented on Post", value: 2 },
