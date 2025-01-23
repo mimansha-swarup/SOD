@@ -4,12 +4,12 @@ import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { type NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-type contextType = { params: { userId: string; communityId: string } };
+type contextType = { params: Promise<{ userId: string; communityId: string }> };
 
 // Track Metric
 export async function POST(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     const body = await req.json();
 
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest, { params }: contextType) {
 // Update Metric
 export async function UPDATE(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     const searchParams = req.nextUrl.searchParams;
     const metricId = searchParams.get("id");
 

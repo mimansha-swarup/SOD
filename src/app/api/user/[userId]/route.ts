@@ -3,13 +3,13 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { type NextRequest } from "next/server";
 
-type contextType = { params: { userId: string } };
+type contextType = { params: Promise<{ userId: string }> };
 
 export async function GET(req: NextRequest, { params }: contextType) {
   // const searchParams = req.nextUrl.searchParams;
   // const query = searchParams.get("id");
   try {
-    const { userId } = params;
+    const { userId } = await params;
 
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
     const userSnapshot = await getDoc(userDocRef);

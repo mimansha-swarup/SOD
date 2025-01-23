@@ -3,11 +3,11 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { type NextRequest } from "next/server";
 
-type contextType = { params: { communityId: string } };
+type contextType = { params: Promise<{ communityId: string }> };
 
 export async function GET(req: NextRequest, { params }: contextType) {
   try {
-    const { communityId } = params;
+    const { communityId } = await params;
     // const searchParams = req.nextUrl.searchParams;
     // const query = searchParams.get("community");
     const communityDocRef = doc(

@@ -5,7 +5,7 @@ import { type NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 type contextType = {
-  params: { userId: string; communityId: string };
+  params: Promise<{ userId: string; communityId: string }>;
 };
 
 // Todo: check arrayUnion for upating an array https://firebase.google.com/docs/firestore/manage-data/add-data
@@ -13,7 +13,7 @@ type contextType = {
 // Get  Metric data
 export async function GET(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     // const searchParams = req.nextUrl.searchParams;
     // const metricDate = searchParams.get("metricDate");
 
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest, { params }: contextType) {
 // Create New Metric
 export async function POST(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     const body = await req.json();
 
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest, { params }: contextType) {
 // Update Metric
 export async function UPDATE(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     const searchParams = req.nextUrl.searchParams;
     const metricId = searchParams.get("id");
 
@@ -75,7 +75,7 @@ export async function UPDATE(req: NextRequest, { params }: contextType) {
       communityId
     );
     const snapshot = await getDoc(userMetricDocRef);
-    const userMetric = snapshot.data();
+    const userMetric = snapshot.data() ;
 
     if (userMetric) {
       userMetric.metrics = userMetric.metrics?.map((metric) =>

@@ -3,10 +3,10 @@ import { db } from "@/lib/firebase";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { type NextRequest } from "next/server";
 
-type contextType = { params: { userId: string; communityId: string } };
+type contextType = { params: Promise<{ userId: string; communityId: string }> };
 
 export async function GET(req: NextRequest, { params }: contextType) {
-  const { userId, communityId } = params;
+  const { userId, communityId } = await params;
 
   const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
   const userCommunityDocRef = doc(
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: contextType) {
 
 export async function POST(req: NextRequest, { params }: contextType) {
   try {
-    const { userId, communityId } = params;
+    const { userId, communityId } = await params;
     const body = await req.json();
 
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
