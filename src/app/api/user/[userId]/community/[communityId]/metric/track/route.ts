@@ -1,5 +1,6 @@
 import { FIREBASE_COLLECTION } from "@/constants/firebase";
 import { db } from "@/lib/firebase";
+import { IUsersMetrics } from "@/types/feature/user";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { type NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
@@ -18,22 +19,22 @@ export async function POST(req: NextRequest, { params }: contextType) {
       communityId
     );
     const snapshot = await getDoc(userMetricDocRef);
-    const userMetric = snapshot.data();
+    const userMetric = snapshot.data() as IUsersMetrics;
+    // TODO: Fix this logic
+    // if (userMetric) {
+    //   const todayTracking = userMetric.trackingData?.[body.date] ?? {};
+    //   body.trackingData.forEach((eachTrackingData) => {
+    //     todayTracking[eachTrackingData.id] = eachTrackingData;
+    //   });
+    //   userMetric.trackingData = {
+    //     ...userMetric.trackingData,
+    //     [body.date]: todayTracking,
+    //   };
 
-    if (userMetric) {
-      const todayTracking = userMetric.trackingData?.[body.date] ?? {};
-      body.trackingData.forEach((eachTrackingData) => {
-        todayTracking[eachTrackingData.id] = eachTrackingData;
-      });
-      userMetric.trackingData = {
-        ...userMetric.trackingData,
-        [body.date]: todayTracking,
-      };
+    //   await updateDoc(userMetricDocRef, userMetric);
 
-      await updateDoc(userMetricDocRef, userMetric);
-
-      return Response.json({ data: userMetric }, { status: 200 });
-    }
+    //   return Response.json({ data: userMetric }, { status: 200 });
+    // }
 
     return Response.json({ message: "Metric not found" }, { status: 404 });
   } catch (error) {
