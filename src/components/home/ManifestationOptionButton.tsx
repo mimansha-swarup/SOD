@@ -12,7 +12,6 @@ import {
   SheetHeight,
   SheetPosition,
 } from "@/constants/bottomsheet";
-import { trackersList, TRACKER_MODE } from "@/constants/tracker";
 import { addBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
 import { EyeClosed, Pencil, Settings2 } from "lucide-react";
 import { useAppDispatch } from "@/lib/store";
