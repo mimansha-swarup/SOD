@@ -1,10 +1,12 @@
 import SignUpContainer from "@/container/signup";
-import React from "react";
+import React, { Suspense } from "react";
 
 const SignUpPage = () => {
   return (
     <main className="px-4 w-full">
-      <SignUpContainer />
+      <Suspense>
+        <SignUpContainer />
+      </Suspense>
     </main>
   );
 };
