@@ -6,7 +6,7 @@ import { IMetricsArray } from "@/types/feature/user";
 import { DEFAULT_COMMUNITY } from "@/constants/tracker";
 
 export const getCommunityId = () => {
-  if (window) {
+  if (typeof window !== "undefined") {
     const community = localStorage.getItem("selectedCommunity");
     return community || DEFAULT_COMMUNITY;
   }
@@ -64,5 +64,3 @@ export function createMappingData(
 
   return [config, data] as [ChartOptions<"bar">, ChartData<"bar">];
 }
-
-

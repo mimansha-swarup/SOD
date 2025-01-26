@@ -4,7 +4,7 @@ type ParamType = {
   value?: unknown;
 };
 export function setSessionStorage({ fieldName, value }: ParamType) {
-  if (window) {
+  if (typeof window !== "undefined") {
     sessionStorage.setItem(fieldName, JSON.stringify(value));
   }
 }
