@@ -13,8 +13,11 @@ export const enum FetchResponseFormat {
 
 export const API_PATH = {
   MASTER_COMMUNITY: "/api/community/[communityId]",
+  MASTER_METRICS: "/api/metrics/[communityId]",
   USER: "/api/user/[userId]",
   USERS_COMMUNITY: "/api/user/[userId]/community/[communityId]",
   USERS_METRIC: "/api/user/[userId]/community/[communityId]/metric",
+  SAVE_USERS_METRIC:
+    "/api/user/[userId]/community/[communityId]/metric?id=[metricId]",
   TRACK_METRIC: "/api/user/[userId]/community/[communityId]/metric/track",
 };

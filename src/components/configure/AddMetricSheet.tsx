@@ -11,42 +11,66 @@ import {
   SelectItem,
 } from "../ui/select";
 import { generatePastelColor } from "@/utils/configure";
+import { auth } from "@/lib/firebase";
+import { getCommunityId } from "@/utils/tracker";
+import { useAppDispatch } from "@/lib/store";
+import { saveUsersMetric } from "@/lib/features/user/user.thunk";
+import { IMetricsArray } from "@/types/feature/user";
+import { v4 as uuidv4 } from "uuid";
+import { popBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
 import { TRACKER_MODE } from "@/constants/tracker";
 
 const METRIC_TYPES = {
-  checkbox: "Checkbox",
-  number: "Number",
+  checkbox: "BOOLEAN",
+  number: "NUMBER",
 };
-const INITIAL_METRIC_STATE = {
+const INITIAL_METRIC_STATE: metricDataType = {
+  id: uuidv4(),
   name: "",
+  description: "",
   color: generatePastelColor(),
-  type: METRIC_TYPES.checkbox,
-  threshold: 0,
+  type: METRIC_TYPES.checkbox as "BOOLEAN" | "NUMBER",
 };
 
-type metricDataType = typeof INITIAL_METRIC_STATE;
+type metricDataType = Omit<IMetricsArray, "quantity">;
+
 const AddMetricSheet = ({
   mode = "add" as const,
-  metricData = {},
+  metricData = {} as metricDataType,
 }: {
   mode?: keyof typeof TRACKER_MODE;
-  metricData?: Record<string, any>;
+  metricData?: metricDataType;
 }) => {
-  const [metricName, setMetricName] = useState({
+  const [metricName, setMetricName] = useState<metricDataType>({
     ...INITIAL_METRIC_STATE,
     color: generatePastelColor(),
   });
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (mode === TRACKER_MODE.edit) {
       setMetricName({
-        threshold: metricData.maxValue,
+        id: metricData.id,
         name: metricData.name,
         color: metricData.color,
         type: metricData.type,
+        description: metricData.description,
       });
     }
   }, [mode]);
+
+  const saveMetric = (metricBody: metricDataType) => () => {
+    dispatch(
+      saveUsersMetric({
+        userId: auth?.currentUser?.uid ?? "",
+        communityId: getCommunityId(),
+        metricId: metricBody.id,
+        body: JSON.stringify(metricBody),
+      })
+    );
+    dispatch(popBottomSheet());
+  };
 
   const handleAddMetric =
     (fieldName: keyof typeof metricName) =>
@@ -65,7 +89,6 @@ const AddMetricSheet = ({
           onChange={handleAddMetric("name")}
         />
       </div>
-      <Label>Date :</Label>
       <div className="flex gap-2 items-center ">
         <Label>Color :</Label>
         <Input
@@ -87,19 +110,10 @@ const AddMetricSheet = ({
           </SelectContent>
         </Select>
       </div>
-      {metricName.type === METRIC_TYPES.number && (
-        <div className="flex gap-2 items-center">
-          <Label>Threshold :</Label>
-          <Input
-            className="max-w-36"
-            type="number"
-            min={0}
-            value={metricName.threshold}
-            onChange={handleAddMetric("threshold")}
-          />
-        </div>
-      )}
-      <Button className="mt-auto  bg-gradient-to-r from-primary to-accent w-full text-black">
+      <Button
+        onClick={saveMetric(metricName)}
+        className="mt-auto  bg-gradient-to-r from-primary to-accent w-full text-black"
+      >
         Save
       </Button>
     </div>

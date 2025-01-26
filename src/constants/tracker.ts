@@ -2,6 +2,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { FIREBASE_COLLECTION } from "./firebase";
 import { db } from "@/lib/firebase";
 
+export const DEFAULT_COMMUNITY = "SOD";
+export const MOCK_DEFAULT_COMMUNITY = "SOD";
+
 export const TRACKER_MODE = {
   add: "add",
   edit: "edit",
@@ -110,7 +113,7 @@ export const MetricsCommunityMock = [
     description: "Prepare and attend interviews",
     id: "205",
     name: "Interviews",
-    type: "NUMBER",
+    type: "BOOLEAN",
     // "quantity": "2/month"
   },
   {
@@ -136,16 +139,3 @@ export const MetricsCommunityMock = [
     type: "BOOLEAN",
   },
 ];
-
-export const createMockCoummnityMetrics = async()  =>{
-  const docRef = doc(db , FIREBASE_COLLECTION.METRICS, "SOD" )
-  const snapshot = await getDoc(docRef)
-  if(!snapshot.exists()){
-   await setDoc(
-      docRef,
-      {
-        list: MetricsCommunityMock
-      }
-    )
-  }
-}

@@ -10,12 +10,10 @@ import { useEffect } from "react";
 export default function Template({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUser);
-
   useEffect(() => {
-    console.log("asdasdasd", user?.data?.uid, auth.currentUser?.uid);
     onAuthStateChanged(auth, (currentUser) => {
       if (!user.data?.uid) {
-        console.log("asdasdasd", user);
+  ;
         dispatch(fetchUser({ userId: currentUser?.uid ?? "" }));
       }
     });

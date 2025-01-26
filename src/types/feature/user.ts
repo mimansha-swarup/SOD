@@ -1,6 +1,7 @@
 type UserJoinedCommunityType = {
   communityRef: unknown;
   community: string;
+  questionnaireCompleted: boolean;
 };
 
 export interface IUserRecordState {

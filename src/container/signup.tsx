@@ -1,20 +1,37 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/firebase";
+import { getUserData } from "@/lib/actions/users.action";
 import { onGoogleSignIn } from "@/utils/auth";
+import { getCommunityId } from "@/utils/tracker";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { IUser } from "@/types/feature/user";
 //  add image and text and at bottom only google signin
 const SignUpContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const community = searchParams.get("community") || "SOD";
+  const community = searchParams.get("community") || getCommunityId();
   const [isLoading, setIsLoading] = useState(false);
-
+  const userId = auth?.currentUser?.uid;
   const onSuccessfulLogin = async () => {
     setIsLoading(true);
+    if (userId) {
+      const userData = await getUserData({
+        uid: userId,
+      });
+
+      const parsedUser = (userData ? JSON.parse(userData) : {}) as IUser;
+
+      const communityObject = parsedUser.communities?.find(
+        (eachCommunity) => eachCommunity?.community === community
+      );
+      communityObject?.questionnaireCompleted
+        ? router.push("/")
+        : router.push("/questionnaire");
+    }
     setIsLoading(false);
-    router.push("/");
   };
 
   console.log("router.query", community);

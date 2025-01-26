@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchUser, fetchUsersCommunity, fetchUsersMetric } from "./user.thunk";
-import { RootState } from "@/lib/store";
+import { createSlice } from "@reduxjs/toolkit";
 import {
-  IMetricsArray,
-  IUser,
-  IUserRecordState,
-  IUsersCommunity,
-} from "@/types/feature/user";
+  fetchUser,
+  fetchUsersCommunity,
+  fetchUsersMetric,
+  saveUsersMetric,
+} from "./user.thunk";
+import { RootState } from "@/lib/store";
+import { IMetricsArray, IUserRecordState } from "@/types/feature/user";
 
 const initialState: IUserRecordState = {
   user: {
@@ -17,7 +17,7 @@ const initialState: IUserRecordState = {
       email: "",
       communities: [],
     },
-    isLoading: false,
+    isLoading: true,
   },
   community: {
     data: {
@@ -25,20 +25,20 @@ const initialState: IUserRecordState = {
       currentLevel: "Level 0",
       desiredIncome: "0",
       income: "0",
-      isPaid: false,
+      isPaid: true,
       manifestation: "",
       joinedAt: "",
       streak: 0,
       path: [],
     },
-    isLoading: false,
+    isLoading: true,
   },
   metrics: {
     data: {
       metrics: [] as IMetricsArray[],
       trackingData: {},
     },
-    isLoading: false,
+    isLoading: true,
   },
 };
 
@@ -80,10 +80,22 @@ const userSlice = createSlice({
       .addCase(fetchUsersMetric.fulfilled, (state, action) => {
         state.metrics.isLoading = false;
         if (action.payload) {
-        state.metrics.data = action.payload;
+          state.metrics.data = action.payload;
         }
       })
       .addCase(fetchUsersMetric.rejected, (state) => {
+        state.metrics.isLoading = false;
+      })
+      .addCase(saveUsersMetric.pending, (state) => {
+        state.metrics.isLoading = true;
+      })
+      .addCase(saveUsersMetric.fulfilled, (state, action) => {
+        state.metrics.isLoading = false;
+        if (action.payload) {
+          state.metrics.data = action.payload;
+        }
+      })
+      .addCase(saveUsersMetric.rejected, (state) => {
         state.metrics.isLoading = false;
       });
   },

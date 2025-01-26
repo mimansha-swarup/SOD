@@ -2,7 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { QuestionnaireIds, questionnaireList } from "@/constants/questionnaire";
-import { getUserData, updateUserCommunity } from "@/lib/actions/users.action";
+import {
+  getUserData,
+  updateUserCommunity,
+  updateUserCommunityArray,
+} from "@/lib/actions/users.action";
 import { auth } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import {
@@ -10,6 +14,7 @@ import {
   removeSessionStorage,
   setSessionStorage,
 } from "@/utils/storage";
+import { getCommunityId } from "@/utils/tracker";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -23,6 +28,7 @@ const QuestionnaireContainer = () => {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [record, setRecord] = useState(INITIAL_RECORD);
+  const [isLoading, setIsLoading] = useState(false);
 
   const activeSlide = questionnaireList[currentSlide];
   const activeID = activeSlide?.id;
@@ -49,6 +55,7 @@ const QuestionnaireContainer = () => {
     };
 
   const updateData = async () => {
+    setIsLoading(true);
     const data = {
       income: record[QuestionnaireIds.INCOME],
       manifestation: record[QuestionnaireIds.MANIFESTATION],
@@ -57,10 +64,11 @@ const QuestionnaireContainer = () => {
     };
     await updateUserCommunity({
       uid: userId ?? "",
-      community: "SOD",
+      community: getCommunityId(),
       dataToUpdate: data,
     });
     removeSessionStorage({ fieldName: "questionnaire" });
+    setIsLoading(false);
     router.push("/");
   };
 
@@ -149,7 +157,11 @@ const QuestionnaireContainer = () => {
               Back
             </Button>
           )}
-          <Button onClick={handleNext} className={cn(isFullBtn && "w-full")}>
+          <Button
+            onClick={handleNext}
+            className={cn(isFullBtn && "w-full")}
+            loading={isLoading}
+          >
             {isFullBtn ? activeSlide.id : "Next"}
           </Button>
         </div>

@@ -4,6 +4,8 @@ import { API_PATH } from "@/constants/network";
 import { baseFetch } from "@/utils/network";
 import { RootState } from "@/lib/store";
 import { IUser, IUsersCommunity, IUsersMetrics } from "@/types/feature/user";
+import { fetchMasterMetrics } from "../community/community.thunk";
+import { getCommunityId } from "@/utils/tracker";
 
 export const fetchUser = createAsyncThunk(
   "userRecord/user",
@@ -18,12 +20,13 @@ export const fetchUser = createAsyncThunk(
         const firstCommunityId = userData.data.communities[0]?.community; // Get the first element
 
         // Dispatch community thunk with the first communityId
-        await dispatch(
-          fetchUsersCommunity({ userId, communityId: firstCommunityId })
-        );
-        await dispatch(
-          fetchUsersMetric({ userId, communityId: firstCommunityId })
-        );
+        await Promise.all([
+          dispatch(
+            fetchUsersCommunity({ userId, communityId: firstCommunityId })
+          ),
+          dispatch(fetchUsersMetric({ userId, communityId: firstCommunityId })),
+          dispatch(fetchMasterMetrics({ communityId: firstCommunityId })),
+        ]);
       }
 
       return userData.data;
@@ -77,6 +80,43 @@ export const fetchUsersMetric = createAsyncThunk(
           communityIds
         ),
       });
+
+      return userMetricData.data;
+    } catch (error) {
+      console.log("error: ", (error as Error)?.message);
+    }
+  }
+);
+export const saveUsersMetric = createAsyncThunk(
+  "userRecord/saveMetric",
+  async (
+    {
+      userId,
+      communityId,
+      metricId,
+      body,
+    }: {
+      userId: string;
+      communityId: string;
+      metricId: string;
+      body: BodyInit;
+    },
+    { rejectWithValue, getState, dispatch }
+  ) => {
+    try {
+      const state = getState() as RootState;
+      const communityIds =
+        communityId ||
+        state?.userRecord?.user?.data?.communities?.[0]?.community;
+      const userMetricData = await baseFetch<{ data: IUsersMetrics }>({
+        method: HTTP_METHODS.PUT,
+        body: body,
+        url: API_PATH.SAVE_USERS_METRIC.replace("[userId]", userId)
+          .replace("[communityId]", communityIds)
+          .replace("[metricId]", metricId),
+      });
+
+      await dispatch(fetchMasterMetrics({ communityId: getCommunityId() }));
 
       return userMetricData.data;
     } catch (error) {

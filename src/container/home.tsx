@@ -4,6 +4,7 @@ import Bento from "@/components/home/Bento";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAppSelector } from "@/lib/store";
 import { getUser, getUsersCommunity } from "@/lib/features/user/user.slice";
+import DailyProgress from "@/components/home/DailyProgress";
 
 const HomeContainer = () => {
   const { data: userRecord } = useAppSelector(getUser);
@@ -19,6 +20,7 @@ const HomeContainer = () => {
         </Avatar>
         <p className=" text-sm font-semibold ">Hello, {FName}!</p>
       </div>
+      <DailyProgress progress={45} />
       <AuroraHero manifestation={usersCommunity?.manifestation} />
 
       <Bento />

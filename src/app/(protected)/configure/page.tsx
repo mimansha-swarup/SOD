@@ -1,7 +1,6 @@
 "use client";
 import MetricList from "@/components/configure/metricList";
 import React from "react";
-import StoreProvider from "../../StateProvider";
 import ShowBS from "@/components/shared/ShowBS";
 import PageHeader from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -17,17 +16,16 @@ const ConfigurePage = () => {
   return (
     <div className="px-4 flex flex-col w-screen relative">
       <PageHeader title="My Metrics" />
-      <StoreProvider>
-        <MetricList />
 
-        <ShowBS />
-        <Button
-          onClick={navigateToClubsMetrics}
-          className="fixed bottom-16 right-4 bg-secondary text-background hover:text-background hover:bg-secondary h-[36px] w-[36px] rounded-full"
-        >
-          <Plus height={24} width={24} />
-        </Button>
-      </StoreProvider>
+      <MetricList />
+
+      <ShowBS />
+      <Button
+        onClick={navigateToClubsMetrics}
+        className="fixed bottom-16 right-4 bg-secondary text-background hover:text-background hover:bg-secondary h-[36px] w-[36px] rounded-full"
+      >
+        <Plus height={24} width={24} />
+      </Button>
     </div>
   );
 };

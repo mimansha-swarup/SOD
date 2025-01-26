@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import bottomSheetReducer from "./features/bottomsheet/bottomsheet.slice";
 import userReducer from "./features/user/user.slice";
+import CommunityReducer from "./features/community/community.slice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       bottomSheet: bottomSheetReducer,
       userRecord: userReducer,
+      masterCommunity: CommunityReducer,
     },
   });
 };

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import WeekSlider from "@/components/tracker/weekSlider";
-import StoreProvider from "@/app/StateProvider";
 import ShowBS from "@/components/shared/ShowBS";
 import { createMappingData } from "@/utils/tracker";
 import BarChart from "@/components/tracker/BarChart";
@@ -19,11 +18,11 @@ const TrackerContainer = () => {
   const [selectedDate, setSelectedDate] = useState(today);
   const { data: metricRecord } = useAppSelector(getUsersMetrics);
 
+
   //TODO: change to trackingData
   const [options, record] = createMappingData(metricRecord?.metrics ?? []);
 
   return (
-    <StoreProvider>
       <div className="relative">
         <ShowBS />
         <PageHeader
@@ -33,9 +32,6 @@ const TrackerContainer = () => {
           rightIconClick={() => router.push("/configure")}
           showBackIcon={false}
         />
-        {/* <TrackerList
-          selectedTracker={trackerData}
-        /> */}
 
         <div className="w-full mb-6">
           <WeekSlider
@@ -46,10 +42,8 @@ const TrackerContainer = () => {
         <div className="mb-6 max-w-[calc(100vw-32px)]">
           <BarChart data={record} options={options} />
         </div>
-        {/* <Button onClick={createMockCoummnityMetrics}>Create Mock</Button> */}
         <TrackerButton metricArray={metricRecord?.metrics ?? []} />
       </div>
-    </StoreProvider>
   );
 };
 

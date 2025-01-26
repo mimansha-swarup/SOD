@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import QuantitySelector from "../shared/QuantitySelector";
+import classNames from "classnames";
 
 const Tracker = ({ metricArray }: { metricArray: any[] }) => {
   console.log("metricArray", metricArray);
@@ -11,12 +12,12 @@ const Tracker = ({ metricArray }: { metricArray: any[] }) => {
   // ];
   return (
     <div className="px-2 flex flex-col justify-between h-full pb-12">
-      <div>
+      <div className="overflow-auto">
         {metricArray?.length &&
           metricArray.map((item) => (
             <div className=" text-lg flex justify-between items-center mb-4">
               <p>{item.name}</p>
-              <QuantitySelector />
+              <QuantitySelector value={item?.value ?? 0} onChange={() => {}} />
             </div>
           ))}
       </div>
