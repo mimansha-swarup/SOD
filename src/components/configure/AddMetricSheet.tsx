@@ -10,7 +10,7 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select";
-import { generatePastelColor } from "@/utils/configure";
+import { generateNeonColor } from "@/utils/configure";
 import { auth } from "@/lib/firebase";
 import { getCommunityId } from "@/utils/tracker";
 import { useAppDispatch } from "@/lib/store";
@@ -28,7 +28,7 @@ const INITIAL_METRIC_STATE: metricDataType = {
   id: uuidv4(),
   name: "",
   description: "",
-  color: generatePastelColor(),
+  color: generateNeonColor(),
   type: METRIC_TYPES.checkbox as "BOOLEAN" | "NUMBER",
 };
 
@@ -43,7 +43,7 @@ const AddMetricSheet = ({
 }) => {
   const [metricName, setMetricName] = useState<metricDataType>({
     ...INITIAL_METRIC_STATE,
-    color: generatePastelColor(),
+    color: generateNeonColor(),
   });
 
   const dispatch = useAppDispatch();

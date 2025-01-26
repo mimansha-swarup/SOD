@@ -12,58 +12,20 @@ import DateChip from "./dateChip";
 import CalendarShimmer from "../shimmers/calendar";
 import { days } from "@/constants/calendar";
 import classNames from "classnames";
-import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 type WeekSliderProps = {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
 };
+
 const WeekSlider = ({ selectedDate, setSelectedDate }: WeekSliderProps) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const [weeks, setWeeks] = useState<Date[][]>([]);
-  const [weekIndex, setWeekIndex] = useState(0);
-  // const [selectedDate, setSelectedDate] = useState(today);
-  const [startX, setStartX] = useState(0); // Track initial touch position
-  const [endX, setEndX] = useState(0); // Track final touch position
-  const [isSwiping, setIsSwiping] = useState(false); // Track if it's a swipe gesture
-
-  // Handle touch start
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartX(e.touches[0].clientX);
-    setIsSwiping(false); // Reset swiping state
-  };
-
-  // Handle touch move
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const currentX = e.touches[0].clientX;
-    const diffX = Math.abs(currentX - startX);
-    if (diffX > 10) {
-      setIsSwiping(true); // Mark as swiping if movement exceeds threshold
-    }
-  };
-
-  // Handle touch end
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isSwiping) {
-      return; // Handle tap/click logic here
-    }
-
-    setEndX(e.changedTouches[0].clientX);
-    determineSwipeDirection();
-  };
-
-  // Determine swipe direction
-  const determineSwipeDirection = () => {
-    const diffX = endX - startX;
-
-    if (diffX > 40) {
-      onPrevClick();
-    } else if (diffX < -40) {
-      onNextClick();
-    }
-  };
+  const [weekIndex, setWeekIndex] = useState(1);
 
   const createWeeks = (currentDate: Date) => {
     const startOfTheWeek = getStartOfTheWeek(currentDate);
@@ -74,25 +36,37 @@ const WeekSlider = ({ selectedDate, setSelectedDate }: WeekSliderProps) => {
 
   useEffect(() => {
     createWeeks(today);
+    const [date, month, year] = getPartsOfDate(today);
+    createWeeks(new Date(year, month, date - 1));
   }, []);
-
-  const onNextClick = () => {
-    if (weeks.length - 1 > weekIndex) {
-      setWeekIndex((idx) => idx + 1);
-    }
-  };
-
-  const onPrevClick = () => {
-    if (weekIndex === 0) {
-      const [date, month, year] = getPartsOfDate(weeks[0][0]);
-      createWeeks(new Date(year, month, date - 1));
-    } else {
-      setWeekIndex((idx) => idx - 1);
-    }
-  };
 
   const onSelect = (date: Date) => () => {
     setSelectedDate(date);
+  };
+
+  const handleSlideChange = (swiper: any) => {
+    const currentIndex = swiper.activeIndex;
+
+    // Restrict sliding forward beyond today's week
+    if (currentIndex > weekIndex && weekIndex === weeks.length - 1) {
+      swiper.slideTo(weekIndex); // Prevent moving forward
+      return;
+    }
+
+    // Handle creating a previous week when sliding to the first slide
+    if (currentIndex === 0) {
+      const [date, month, year] = getPartsOfDate(weeks[0][0]);
+      createWeeks(new Date(year, month, date - 1));
+
+      // Wait until the new week is added to ensure Swiper works correctly
+      setTimeout(() => {
+        swiper.slideTo(1); // Slide back to the newly created first week
+      }, 0);
+      return;
+    }
+
+    // Update the week index
+    setWeekIndex(currentIndex);
   };
 
   if (!weeks.length) {
@@ -113,29 +87,30 @@ const WeekSlider = ({ selectedDate, setSelectedDate }: WeekSliderProps) => {
           </p>
         ))}
       </div>
-      <div
-        key="date"
-        className="flex justify-between w-full items-center"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+
+      <Swiper
+        onSlideChange={handleSlideChange}
+        initialSlide={weekIndex}
+        spaceBetween={10}
+        slidesPerView={1}
+        className="w-full"
       >
-        {/* <Button variant={"ghost"} className="p-1 " onClick={onPrevClick}>
-          <ChevronLeftCircle />
-        </Button> */}
-        {weeks?.[weekIndex]?.map((day) => (
-          <DateChip
-            key={day.toString()}
-            handleClick={onSelect(day)}
-            dateObject={day}
-            isSelected={compareDates(day, selectedDate)}
-            disabled={greaterThanToday(today, day)}
-          />
+        {weeks.map((week, index) => (
+          <SwiperSlide key={`week-${index}`}>
+            <div className="flex justify-between items-center">
+              {week.map((day) => (
+                <DateChip
+                  key={day.toString()}
+                  handleClick={onSelect(day)}
+                  dateObject={day}
+                  isSelected={compareDates(day, selectedDate)}
+                  disabled={greaterThanToday(today, day)}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
         ))}
-        {/* <Button variant={"ghost"} className="p-1 " onClick={onNextClick}>
-          <ChevronRightCircle />
-        </Button> */}
-      </div>
+      </Swiper>
     </div>
   );
 };

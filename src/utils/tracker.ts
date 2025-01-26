@@ -12,14 +12,18 @@ export const getCommunityId = () => {
   return DEFAULT_COMMUNITY;
 };
 
-export function createMappingData(trackerList: IMetricsArray[]) {
+export function createMappingData(
+  trackerList: IMetricsArray[],
+  shallProcess = true
+) {
+  if (!shallProcess) return [{}, {}] as [ChartOptions<"bar">, ChartData<"bar">];
   const labels = trackerList.map((item) => item.name.split(" "));
   const data = {
     labels: labels,
     datasets: [
       {
         data: trackerList.map(() => randomNumberGenerator(10)),
-        backgroundColor: trackerList.map((item) => `${item.color}30`),
+        backgroundColor: trackerList.map((item) => `${item.color}35`),
         borderColor: trackerList.map((item) => item.color),
         borderWidth: 1,
       },
@@ -63,6 +67,4 @@ export function createMappingData(trackerList: IMetricsArray[]) {
 const saveMetrics = (metric: {
   metric: IMetricsArray;
   list: IMetricsArray[];
-}) => {
-  
-};
+}) => {};

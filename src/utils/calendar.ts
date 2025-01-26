@@ -34,14 +34,19 @@ export const compareDates = (date1: Date, date2: Date) =>
 export const greaterThanToday = (today: Date, date: Date) => {
   return date.getTime() > today.getTime();
 };
-
+const addZero = (number: number) => {
+  return number < 10 ? `0${number}` : `${number}`;
+};
 export const createDateKey = (date1: number | Date) => {
   const date = new Date(date1);
-  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+
+  return `${addZero(date.getDate())}/${addZero(
+    date.getMonth() + 1
+  )}/${date.getFullYear()}`;
 };
 
 export const getBarChartHeight = (noOfItems = 1) => {
   const height = noOfItems * 65;
-  return height
+  return height;
   return height > 300 ? height : 300;
 };

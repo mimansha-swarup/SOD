@@ -59,5 +59,5 @@ export interface ITrackingObject {
   [value: string]: IMetricsTrackingObject[];
 }
 export interface IMetricsTrackingObject extends IMetricsArray {
-  value: string;
+  value: number;
 }
