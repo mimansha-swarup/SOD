@@ -1,3 +1,4 @@
+"use client";
 import { randomNumberGenerator } from "./configure";
 import { ChartData } from "chart.js";
 import { ChartOptions } from "chart.js";
@@ -64,7 +65,4 @@ export function createMappingData(
   return [config, data] as [ChartOptions<"bar">, ChartData<"bar">];
 }
 
-const saveMetrics = (metric: {
-  metric: IMetricsArray;
-  list: IMetricsArray[];
-}) => {};
+
