@@ -1,13 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { QuestionnaireIds, questionnaireList } from "@/constants/questionnaire";
 import {
+  completeQuestionnaire,
   getUserData,
   updateUserCommunity,
   updateUserCommunityArray,
 } from "@/lib/actions/users.action";
+import { getMasterCommunity } from "@/lib/features/community/community.slice";
+import { fetchMasterCommunity } from "@/lib/features/community/community.thunk";
 import { auth } from "@/lib/firebase";
+import { useAppDispatch, useAppSelector } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import {
   getSessionStorage,
@@ -24,11 +31,17 @@ const INITIAL_RECORD = {
   [QuestionnaireIds.INCOME]: "",
   [QuestionnaireIds.GOAL]: "",
 };
+
+const RECORD_KEYS = Object.keys(INITIAL_RECORD);
 const QuestionnaireContainer = () => {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [record, setRecord] = useState(INITIAL_RECORD);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { data: selectedCommunity } = useAppSelector(getMasterCommunity);
+  console.log("selectedCommunity", selectedCommunity);
+  const dispatch = useAppDispatch();
 
   const activeSlide = questionnaireList[currentSlide];
   const activeID = activeSlide?.id;
@@ -37,11 +50,12 @@ const QuestionnaireContainer = () => {
   );
 
   const userId = auth.currentUser?.uid;
-  console.log("userId from questionaire", userId);
 
   useEffect(() => {
     const storage = getSessionStorage({ fieldName: "questionnaire" });
     setRecord(storage || INITIAL_RECORD);
+
+    dispatch(fetchMasterCommunity({ communityId: getCommunityId() }));
   }, []);
 
   const handleRecordChange =
@@ -67,8 +81,13 @@ const QuestionnaireContainer = () => {
       community: getCommunityId(),
       dataToUpdate: data,
     });
+    await completeQuestionnaire({
+      uid: userId ?? "",
+      community: getCommunityId(),
+    });
     removeSessionStorage({ fieldName: "questionnaire" });
     setIsLoading(false);
+    setRecord(INITIAL_RECORD);
     router.push("/");
   };
 
@@ -111,6 +130,30 @@ const QuestionnaireContainer = () => {
             onChange={handleRecordChange(activeID)}
             {...activeSlide.input}
           />
+        );
+
+      case "Radio":
+        return (
+          <RadioGroup>
+            {/* @ts-ignore */}
+            {selectedCommunity?.characters?.map((character) => (
+              <Label
+                htmlFor={character?.name}
+                key={character?.name}
+                className="flex  space-x-2 p-4 bg-background rounded-lg shadow- border  border-white/10 "
+              >
+                <RadioGroupItem
+                  value={character?.name}
+                  id={character?.name}
+                  className="mt-1"
+                />
+                <div>
+                  <p className="text-lg font-bold">{character?.name}</p>
+                  <p className="text-xs">{character?.description} </p>
+                </div>
+              </Label>
+            ))}
+          </RadioGroup>
         );
 
       default:
@@ -161,6 +204,12 @@ const QuestionnaireContainer = () => {
             onClick={handleNext}
             className={cn(isFullBtn && "w-full")}
             loading={isLoading}
+            // disabled={
+            // currentSlide !== 0
+            // // @ts-ignore
+            //   ? !Boolean(record?.[RECORD_KEYS?.[currentSlide]])
+            //   : false
+            // }
           >
             {isFullBtn ? activeSlide.id : "Next"}
           </Button>

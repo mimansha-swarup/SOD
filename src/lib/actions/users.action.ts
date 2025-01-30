@@ -5,6 +5,8 @@ import { FIREBASE_COLLECTION } from "@/constants/firebase";
 import { ICreateUserProps } from "@/types/actions/users";
 import { DEFAULT_COMMUNITY } from "@/constants/tracker";
 import { IUser } from "@/types/feature/user";
+import { getCommunityId } from "@/utils/tracker";
+import { getMasterMetrics } from "../features/community/community.slice";
 
 type ActionProps = {
   docId: string;
@@ -13,70 +15,73 @@ type ActionProps = {
 type UpdateActionProps = {
   uid: string;
   community: string;
-  dataToUpdate: any;
+  dataToUpdate?: any;
 };
 type CreateNewUserProps = {
   uid: string;
   communityName?: string;
 };
 
-// const createCommunity = async ({ docId, uid }: ActionProps) => {
-//   const communityDocRef = doc(db, FIREBASE_COLLECTION.COMMUNITIES, docId);
-//   await setDoc(communityDocRef, {
-//     id: "SOD",
-//     name: "Skills over degree",
-//     incomeAverage: 0,
-//     members: [uid],
-//     characters: [
-//       {
-//         id: "1",
-//         name: "TrailBlazer",
-//         description: "Freshers looking for internship/first job ",
-//         photoUrl: "",
-//         path: "JOB",
-//       },
-//       {
-//         id: "2",
-//         name: "Climber",
-//         description:
-//           "Professional looking to switch into high paying or more fulfilling job",
-//         photoUrl: "",
-//         path: "JOB",
-//       },
-//       {
-//         id: "3",
-//         name: "Balancer",
-//         description:
-//           "Individual managing fulltime job while starting a freelancing agency or side hustle",
-//         photoUrl: "",
-//         path: "FREELANCE",
-//       },
-//       {
-//         id: "4",
-//         name: "Builder",
-//         description: "For fulltime business and agency owners",
-//         photoUrl: "",
-//         path: "FREELANCE",
-//       },
-//     ],
-//     paths: {
-//       JOB: {},
-//       FREELANCE: {},
-//     },
-//   });
-// };
+const createCommunity = async ({ docId, uid }: ActionProps) => {
+  const communityDocRef = doc(db, FIREBASE_COLLECTION.COMMUNITIES, docId);
+  await setDoc(communityDocRef, {
+    id: "SOD",
+    name: "Skills over degree",
+    incomeAverage: 0,
+    members: [uid],
+    characters: [
+      {
+        id: "1",
+        name: "TrailBlazer",
+        description: "Freshers looking for internship/first job ",
+        photoUrl: "",
+        path: "JOB",
+      },
+      {
+        id: "2",
+        name: "Climber",
+        description:
+          "Professional looking to switch into high paying or more fulfilling job",
+        photoUrl: "",
+        path: "JOB",
+      },
+      {
+        id: "3",
+        name: "Balancer",
+        description:
+          "Individual managing fulltime job while starting a freelancing agency or side hustle",
+        photoUrl: "",
+        path: "FREELANCE",
+      },
+      {
+        id: "4",
+        name: "Builder",
+        description: "For fulltime business and agency owners",
+        photoUrl: "",
+        path: "FREELANCE",
+      },
+    ],
+    paths: {
+      JOB: {},
+      FREELANCE: {},
+    },
+  });
+};
 export const createNewUSer = async ({
   displayName,
   email,
   photoURL,
   uid,
-  community = "DEFAULT",
+  community = getCommunityId(),
 }: ICreateUserProps) => {
   try {
     const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, uid);
 
     const communityRef = doc(db, FIREBASE_COLLECTION.COMMUNITIES, community);
     const userSnapshot = await getDoc(userDocRef);
+    // if (true) {
+    //   createCommunity({ docId: community, uid });
+    // }
 
     if (!userSnapshot.exists()) {
       await setDoc(userDocRef, {
@@ -89,6 +94,7 @@ export const createNewUSer = async ({
         ],
       });
       createCommunityInNewUser({ uid, docId: community });
+      createMetricInNewUser({ uid, docId: community });
     }
   } catch (error) {
     console.log("error", error);
@@ -113,7 +119,21 @@ export const createCommunityInNewUser = async ({ uid, docId }: ActionProps) => {
     manifestation: "I want to be rich",
     currentLevel: "Level 0",
     streak: 1,
-    isPaid: docId !== DEFAULT_COMMUNITY,
+    isPaid: docId !== "DEFAULT" || DEFAULT_COMMUNITY,
+  });
+};
+export const createMetricInNewUser = async ({ uid, docId }: ActionProps) => {
+  const usersMetricDocRef = doc(
+    db,
+    FIREBASE_COLLECTION.USERS,
+    uid,
+    FIREBASE_COLLECTION.METRICS,
+    docId
+  );
+
+  await setDoc(usersMetricDocRef, {
+    metrics: [],
+    trackingData: {},
   });
 };
 
@@ -129,7 +149,28 @@ export const updateUserCommunity = async ({
     FIREBASE_COLLECTION.COMMUNITIES,
     community
   );
+
   await updateDoc(userCommunityDocRef, dataToUpdate);
+};
+
+export const completeQuestionnaire = async ({
+  uid,
+  community,
+}: UpdateActionProps) => {
+  const userRef = doc(db, FIREBASE_COLLECTION.USERS, uid);
+
+  const snapshot = await getDoc(userRef);
+
+  const userData = snapshot.data() as IUser;
+
+  const updatedCommunities = userData.communities?.map((communityObj) =>
+    communityObj.community === community
+      ? { ...communityObj, questionnaireCompleted: true }
+      : communityObj
+  );
+  updateDoc(userRef, {
+    communities: updatedCommunities,
+  });
 };
 
 export const getUserData = async ({ uid }: CreateNewUserProps) => {

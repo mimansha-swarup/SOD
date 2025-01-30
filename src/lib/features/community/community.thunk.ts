@@ -22,3 +22,20 @@ export const fetchMasterMetrics = createAsyncThunk(
       }
     }
 );
+export const fetchMasterCommunity = createAsyncThunk(
+  "masterCommunity/fetchCommunity",
+  async ({ communityId }: { communityId: string }) =>
+    // { rejectWithValue, dispatch }
+    {
+      try {
+        const userData = await baseFetch<{ data: { list: IMetricsArray[] } }>({
+          method: HTTP_METHODS.GET,
+          url: API_PATH.MASTER_COMMUNITY.replace("[communityId]", communityId),
+        });
+
+        return userData.data;
+      } catch (error) {
+        console.log("error: ", (error as Error)?.message);
+      }
+    }
+);

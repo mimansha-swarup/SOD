@@ -13,6 +13,8 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { googleSignOut } from "@/utils/auth";
+import { getCommunityId } from "@/utils/tracker";
 
 const ProfileContainer = () => {
   const { data: userRecord } = useAppSelector(getUser);
@@ -46,8 +48,8 @@ const ProfileContainer = () => {
         <div className="bg-white/10 flex py-2.5 px-4 rounded-md backdrop-blur border border-white/20 ">
           <p className=" basis-1/2">Switch community</p>
           <Select
-          // value={metricName.type}
-          // onValueChange={handleAddMetric("type")}
+            value={getCommunityId()}
+            // onValueChange={handleAddMetric("type")}
           >
             <SelectTrigger className="flex-1">
               <SelectValue />
@@ -86,7 +88,7 @@ const ProfileContainer = () => {
       <Button
         variant={"outline"}
         className="bg-transparent hover:bg-transparent w-full mt-auto border-red-500  text-red-500 mb-12"
-        onClick={() => {}}
+        onClick={googleSignOut}
       >
         Log out
       </Button>

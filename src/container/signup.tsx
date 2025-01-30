@@ -8,33 +8,36 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IUser } from "@/types/feature/user";
+import { onAuthStateChanged } from "firebase/auth";
+import router from "next/router";
 //  add image and text and at bottom only google signin
 const SignUpContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const community = searchParams.get("community") || getCommunityId();
   const [isLoading, setIsLoading] = useState(false);
-  const userId = auth?.currentUser?.uid;
   const onSuccessfulLogin = async () => {
-    setIsLoading(true);
-    if (userId) {
-      const userData = await getUserData({
-        uid: userId,
-      });
+    onAuthStateChanged(auth, async (curr) => {
+      const userId = curr?.uid;
+      setIsLoading(true);
+      if (userId) {
+        const userData = await getUserData({
+          uid: userId,
+        });
 
-      const parsedUser = (userData ? JSON.parse(userData) : {}) as IUser;
+        const parsedUser = (userData ? JSON.parse(userData) : {}) as IUser;
 
-      const communityObject = parsedUser.communities?.find(
-        (eachCommunity) => eachCommunity?.community === community
-      );
-      communityObject?.questionnaireCompleted
-        ? router.push("/")
-        : router.push("/questionnaire");
-    }
-    setIsLoading(false);
+        const communityObject = parsedUser.communities?.find(
+          (eachCommunity) => eachCommunity?.community === community
+        );
+        communityObject?.questionnaireCompleted
+          ? router.push("/")
+          : router.push("/questionnaire");
+      }
+      setIsLoading(false);
+    });
   };
 
-  console.log("router.query", community);
   return (
     <div className=" flex flex-col  justify-between pt-12 pb-16 h-screen">
       <div className="flex flex-col">
@@ -54,7 +57,10 @@ const SignUpContainer = () => {
       <div>
         <Button
           loading={isLoading}
-          onClick={onGoogleSignIn({ community, onSuccessfulLogin })}
+          onClick={async () => {
+            setIsLoading(true);
+            await onGoogleSignIn({ community, onSuccessfulLogin });
+          }}
           className="py-4 w-full rounded-lg bg-primary "
         >
           Sign In with Google

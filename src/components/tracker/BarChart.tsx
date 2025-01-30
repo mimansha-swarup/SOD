@@ -14,6 +14,8 @@ import {
 } from "chart.js";
 import RadarShimmer from "../shimmers/radar";
 import { getBarChartHeight } from "@/utils/calendar";
+import { getUsersMetrics } from "@/lib/features/user/user.slice";
+import { useAppSelector } from "@/lib/store";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
@@ -24,6 +26,7 @@ interface BarChartProps {
 
 const BarChart: React.FC<BarChartProps> = ({ data, options }) => {
   const [loading, setLoading] = useState(true);
+  const { isLoading } = useAppSelector(getUsersMetrics);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -38,7 +41,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, options }) => {
   const stopLoading = () => {
     setLoading(false);
   };
-  if (loading) return <RadarShimmer />;
+  if (loading || isLoading) return <RadarShimmer />;
   return (
     <Bar
       style={{

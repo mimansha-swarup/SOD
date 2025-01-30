@@ -13,28 +13,27 @@ export async function POST(req: NextRequest, { params }: contextType) {
     const { userId, communityId } = await params;
     const body = await req.json();
 
-    const userDocRef = doc(db, FIREBASE_COLLECTION.USERS, `${userId}`);
     const userMetricDocRef = doc(
-      collection(userDocRef, FIREBASE_COLLECTION.METRICS),
+      db,
+      FIREBASE_COLLECTION.USERS,
+      `${userId}`,
+      FIREBASE_COLLECTION.METRICS,
       communityId
     );
     const snapshot = await getDoc(userMetricDocRef);
     const userMetric = snapshot.data() as IUsersMetrics;
-    // TODO: Fix this logic
-    // if (userMetric) {
-    //   const todayTracking = userMetric.trackingData?.[body.date] ?? {};
-    //   body.trackingData.forEach((eachTrackingData) => {
-    //     todayTracking[eachTrackingData.id] = eachTrackingData;
-    //   });
-    //   userMetric.trackingData = {
-    //     ...userMetric.trackingData,
-    //     [body.date]: todayTracking,
-    //   };
 
-    //   await updateDoc(userMetricDocRef, userMetric);
+    if (userMetric) {
+      const trackingData = {
+        ...userMetric.trackingData,
+        [body.date]: body.trackingData,
+      };
 
-    //   return Response.json({ data: userMetric }, { status: 200 });
-    // }
+      await updateDoc(userMetricDocRef, { trackingData });
+      userMetric.trackingData = trackingData;
+
+      return Response.json({ data: userMetric }, { status: 200 });
+    }
 
     return Response.json({ message: "Metric not found" }, { status: 404 });
   } catch (error) {

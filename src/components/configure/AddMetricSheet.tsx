@@ -19,8 +19,9 @@ import { IMetricsArray } from "@/types/feature/user";
 import { v4 as uuidv4 } from "uuid";
 import { popBottomSheet } from "@/lib/features/bottomsheet/bottomsheet.slice";
 import { TRACKER_MODE } from "@/constants/tracker";
+import { redirect } from "next/navigation";
 
-const METRIC_TYPES = {
+export const METRIC_TYPES = {
   checkbox: "BOOLEAN",
   number: "NUMBER",
 };
@@ -70,6 +71,7 @@ const AddMetricSheet = ({
       })
     );
     dispatch(popBottomSheet());
+    if (mode === "add") redirect("/configure");
   };
 
   const handleAddMetric =

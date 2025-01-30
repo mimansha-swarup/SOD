@@ -1,12 +1,13 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { ChangeEvent } from "react";
 
 export default function QuantitySelector({
   value,
   onChange,
 }: {
   value: number;
-  onChange: () => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <div className="flex items-center space-x-0 text-salmon font-bold mr-0.5">

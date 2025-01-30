@@ -124,3 +124,44 @@ export const saveUsersMetric = createAsyncThunk(
     }
   }
 );
+
+export const saveUsersTrackingData = createAsyncThunk(
+  "userRecord/saveTracking",
+  async (
+    {
+      userId,
+      communityId,
+      body,
+    }: {
+      userId: string;
+      communityId: string;
+      body: BodyInit;
+    },
+    { rejectWithValue, getState, dispatch }
+  ) => {
+    try {
+      const state = getState() as RootState;
+      const communityIds =
+        communityId ||
+        state?.userRecord?.user?.data?.communities?.[0]?.community;
+      const userMetricData = await baseFetch<{ data: IUsersMetrics }>({
+        method: HTTP_METHODS.POST,
+        body: body,
+        url: API_PATH.TRACK_METRIC.replace("[userId]", userId).replace(
+          "[communityId]",
+          communityIds
+        ),
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      await dispatch(
+        fetchUsersMetric({ userId, communityId: getCommunityId() })
+      );
+
+      return userMetricData.data;
+    } catch (error) {
+      console.log("error: ", (error as Error)?.message);
+    }
+  }
+);

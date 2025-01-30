@@ -4,12 +4,14 @@ import {
   fetchUsersCommunity,
   fetchUsersMetric,
   saveUsersMetric,
+  saveUsersTrackingData,
 } from "./user.thunk";
 import { RootState } from "@/lib/store";
 import { IMetricsArray, IUserRecordState } from "@/types/feature/user";
 
 const initialState: IUserRecordState = {
   user: {
+    isLoading: true,
     data: {
       profilePicture: "",
       uid: "",
@@ -17,7 +19,6 @@ const initialState: IUserRecordState = {
       email: "",
       communities: [],
     },
-    isLoading: true,
   },
   community: {
     data: {
@@ -85,7 +86,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUsersMetric.rejected, (state) => {
         state.metrics.isLoading = false;
-      })
+      }) //fetchUserMetric
       .addCase(saveUsersMetric.pending, (state) => {
         state.metrics.isLoading = true;
       })
@@ -96,6 +97,18 @@ const userSlice = createSlice({
         }
       })
       .addCase(saveUsersMetric.rejected, (state) => {
+        state.metrics.isLoading = false;
+      }) //save user Metric
+      .addCase(saveUsersTrackingData.pending, (state) => {
+        state.metrics.isLoading = true;
+      })
+      .addCase(saveUsersTrackingData.fulfilled, (state, action) => {
+        state.metrics.isLoading = false;
+        // if (action.payload) {
+        //   state.metrics.data = action.payload;
+        // }
+      })
+      .addCase(saveUsersTrackingData.rejected, (state) => {
         state.metrics.isLoading = false;
       });
   },
