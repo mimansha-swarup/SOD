@@ -6,9 +6,7 @@ import {
   motion,
   animate,
 } from "framer-motion";
-import { Button } from "../ui/button";
-import { Settings2 } from "lucide-react";
-import ManifestationOptionButton from "./ManifestationOptionButton";
+// import ManifestationOptionButton from "./ManifestationOptionButton";
 import { cn } from "@/lib/utils";
 
 const COLORS_TOP = ["#DC2626", "#F97316", "#FACC15"];
@@ -34,7 +32,7 @@ export const AuroraHero = ({ manifestation = "" }) => {
       }}
       className="relative grid h-2/5 place-content-center overflow-hidden px-4 py-24 "
     >
-      <ManifestationOptionButton />
+      {/* <ManifestationOptionButton /> */}
       <div className="relative z-10 flex flex-col items-center">
         <h1
           className={cn(
