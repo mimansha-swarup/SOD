@@ -13,12 +13,13 @@ export const onGoogleSignIn =
     community,
     onSuccessfulLogin,
   }: {
-    
     community: string;
     onSuccessfulLogin: () => void;
   }) =>
   async () => {
+    console.log("Helllo asdfe");
     const token = await googleSignIn();
+    console.log("token", token);
     const user = auth.currentUser;
     if (user) {
       const { displayName, photoURL, email, uid } = user;
@@ -35,6 +36,7 @@ export const googleSignIn = async () => {
 
   // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
   const result = await signInWithPopup(auth, provider);
+  console.log("result", result);
   const token = await result.user.getIdToken();
 
   setAuthCookie(token);

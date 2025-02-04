@@ -12,7 +12,7 @@ const HomeContainer = () => {
   const FName = userRecord?.name?.split(" ")?.[0] ?? "";
   console.log("userRecord");
   return (
-    <div className="h-screen">
+    <div className="h-[calc(screen - h-8)]">
       <div className="flex mb-4 items-center gap-2 px-4">
         <Avatar className="size-6">
           <AvatarImage src={userRecord?.profilePicture} />

@@ -38,15 +38,16 @@ const addZero = (number: number) => {
   return number < 10 ? `0${number}` : `${number}`;
 };
 export const createDateKey = (date1: number | Date) => {
-  const date = new Date(date1);
+  // const date = new Date(date1);
 
-  return `${addZero(date.getDate())}/${addZero(
-    date.getMonth() + 1
-  )}/${date.getFullYear()}`;
+  return new Date(date1).toLocaleDateString("en-GB").replace(/\//g, "/");
+
+  // return `${addZero(date.getDate())}/${addZero(
+  //   date.getMonth() + 1
+  // )}/${date.getFullYear()}`;
 };
 
 export const getBarChartHeight = (noOfItems = 1) => {
   const height = noOfItems * 65;
   return height;
-  return height > 300 ? height : 300;
 };

@@ -39,7 +39,7 @@ const SignUpContainer = () => {
   };
 
   return (
-    <div className=" flex flex-col  justify-between pt-12 pb-16 h-screen">
+    <div className=" flex flex-col  justify-between pt-12 pb-16 h-[calc(screen - h-8)]">
       <div className="flex flex-col">
         <h1 className="text-2xl text-primary font-bold text-center mb-2">
           Welcome to MetricTracker
@@ -59,7 +59,8 @@ const SignUpContainer = () => {
           loading={isLoading}
           onClick={async () => {
             setIsLoading(true);
-            await onGoogleSignIn({ community, onSuccessfulLogin });
+            console.log("Hello");
+            onGoogleSignIn({ community, onSuccessfulLogin })();
           }}
           className="py-4 w-full rounded-lg bg-primary "
         >

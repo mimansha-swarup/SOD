@@ -7,7 +7,7 @@ const BentoCard = ({
   children,
   className,
 }: {
-  title: string;
+  title?: string;
   children: React.ReactNode;
   className?: string;
 }) => {
@@ -18,7 +18,7 @@ const BentoCard = ({
         className
       )}
     >
-      <CardTitle className="mb-1">{title}</CardTitle>
+      {title && <CardTitle className="mb-1">{title}</CardTitle>}
       {children}
     </Card>
   );

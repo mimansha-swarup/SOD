@@ -28,7 +28,6 @@ const TrackerContainer = () => {
 
   const selectedDateKey = createDateKey(selectedDate);
   const trackingData = metricRecord.trackingData?.[selectedDateKey];
-  console.log("trackingData", trackingData, selectedDateKey);
 
   useEffect(() => {
     if (trackingData) {

@@ -93,11 +93,53 @@ export const createNewUSer = async ({
           { community, communityRef, questionnaireCompleted: false },
         ],
       });
-      createCommunityInNewUser({ uid, docId: community });
-      createMetricInNewUser({ uid, docId: community });
+      Promise.all([
+        createCommunityInNewUser({ uid, docId: community }),
+        createMetricInNewUser({ uid, docId: community }),
+        addNewMemberInCommunity({
+          userData: userSnapshot.data() as IUser,
+          community,
+          uid,
+        }),
+      ]);
+    } else {
+      addNewMemberInCommunity({
+        userData: userSnapshot.data() as IUser,
+        community,
+        uid,
+      });
     }
   } catch (error) {
     console.log("error", error);
+  }
+};
+
+export const addNewMemberInCommunity = async ({
+  userData,
+  community,
+  uid,
+}: {
+  userData: IUser;
+  community: string;
+  uid: string;
+}) => {
+  const communityArray = userData.communities?.map(
+    (community) => community.community
+  );
+  if (!communityArray.includes(community)) {
+    const masterCommunityRef = doc(
+      db,
+      FIREBASE_COLLECTION.COMMUNITIES,
+      community
+    );
+    const masterCommunitySnapshot = await getDoc(masterCommunityRef);
+    if (masterCommunitySnapshot.exists()) {
+      const masterCommunityData = masterCommunitySnapshot.data();
+      const members = [...masterCommunityData.members, uid];
+      await setDoc(masterCommunityRef, {
+        members,
+      });
+    }
   }
 };
 
@@ -131,7 +173,7 @@ export const createMetricInNewUser = async ({ uid, docId }: ActionProps) => {
     docId
   );
 
-  await setDoc(usersMetricDocRef, {
+  setDoc(usersMetricDocRef, {
     metrics: [],
     trackingData: {},
   });
