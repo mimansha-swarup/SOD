@@ -8,6 +8,7 @@ import {
 } from "./user.thunk";
 import { RootState } from "@/lib/store";
 import { IMetricsArray, IUserRecordState } from "@/types/feature/user";
+import { ICharacter } from "@/types/feature/community";
 
 const initialState: IUserRecordState = {
   user: {
@@ -22,7 +23,7 @@ const initialState: IUserRecordState = {
   },
   community: {
     data: {
-      character: "",
+      character: {} as ICharacter,
       currentLevel: "Level 0",
       desiredIncome: "0",
       income: "0",
