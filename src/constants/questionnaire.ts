@@ -28,11 +28,6 @@ export const questionnaireList = [
     description: "",
     inputType: "Radio",
     options: [
-      {
-        title: "The Challenger",
-        description: "lorem ipsum bla bla bla",
-      },
-      {},
     ],
   },
   {

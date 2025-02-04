@@ -1,4 +1,4 @@
-import { ICommunityMetricList } from "@/types/feature/community";
+import { ICommunity, ICommunityMetricList } from "@/types/feature/community";
 import { IMetricsArray } from "@/types/feature/user";
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchMasterCommunity, fetchMasterMetrics } from "./community.thunk";
@@ -10,7 +10,7 @@ const initialState: ICommunityMetricList = {
     isLoading: true,
   },
   selectedCommunity: {
-    data: {},
+    data: {} as ICommunity,
     isLoading: true,
   },
 };

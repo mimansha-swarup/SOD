@@ -37,7 +37,7 @@ const ProfileContainer = () => {
             <span>{usersCommunityRecord?.currentLevel}</span>
           </div>
           <p className="text-lg">{userRecord?.name}</p>
-          <p className="">{usersCommunityRecord?.character}</p>
+          <p className="text-end">{usersCommunityRecord?.character?.name}</p>
         </div>
       </div>
       <div className="flex flex-col gap-4">

@@ -1,3 +1,5 @@
+import { ICharacter } from "./community";
+
 type UserJoinedCommunityType = {
   communityRef: unknown;
   community: string;
@@ -28,7 +30,7 @@ export interface IUser {
 }
 
 export interface IUsersCommunity {
-  character: string;
+  character: ICharacter;
   currentLevel: string;
   desiredIncome: string;
   income: string;

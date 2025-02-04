@@ -1,3 +1,4 @@
+"use client";
 import { TRACKER_MODE } from "@/constants/tracker";
 import { Edit, Trash } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -14,12 +15,14 @@ import { getCommunityId } from "@/utils/tracker";
 import { fetchUsersMetric } from "@/lib/features/user/user.thunk";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import MetricListShimmer from "../shimmers/MetricList";
+import { useRouter } from "next/navigation";
 
 const MetricList = () => {
   const dispatch = useAppDispatch();
   const { data: metricRecord, isLoading } = useAppSelector(getUsersMetrics);
   const [popoverOpen, setPopoverOpen] = useState<Record<string, boolean>>({});
 
+  const router = useRouter();
 
   useEffect(() => {
     const popoverState = metricRecord?.metrics?.reduce((state, metric) => {
@@ -57,12 +60,17 @@ const MetricList = () => {
     togglePopover(metricId);
     dispatch(fetchUsersMetric({ userId, communityId: communityId }));
   };
+
+  const navigateToCommunityMetrics = () => {
+    router.push("/add-metrics");
+  };
+
   if (isLoading) {
-    return <MetricListShimmer noOfMetrics={9} />;
+    return <MetricListShimmer noOfMetrics={8} showButton />;
   }
   return (
-    <div className="py-6 ">
-      <div className="flex flex-col gap-2 h-[calc(100vh-150px)] overflow-auto">
+    <div className="pt-6 ">
+      <div className="flex flex-col gap-2 h-[calc(100vh-130px)] overflow-auto ">
         {(metricRecord?.metrics ?? [])?.map((item) => (
           <div
             key={item.name}
@@ -116,6 +124,13 @@ const MetricList = () => {
             </Popover>
           </div>
         ))}
+        <Button
+          // onClick={navigateToClubsMetrics}
+          onClick={navigateToCommunityMetrics}
+          className="bg-secondary mt-5 mb-2 text-background hover:text-background hover:bg-secondary w-full !rounded-xl"
+        >
+          Add Metrics
+        </Button>
       </div>
     </div>
   );

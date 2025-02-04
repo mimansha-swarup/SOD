@@ -68,7 +68,7 @@ const CommunityMetrics = () => {
   }
 
   return (
-    <div className="py-6 overflow-y-auto">
+    <div className="py-6 overflow-y-auto relative">
       <div className="flex flex-col gap-2">
         {masterMetrics?.map((item) => {
           const disableAdd = userMetricsIds.includes(item.id);
@@ -118,14 +118,13 @@ const CommunityMetrics = () => {
           );
         })}
       </div>
-
       <Button
-        // onClick={navigateToClubsMetrics}
         onClick={openCreateMetricBs}
-        className="bg-secondary mt-6 text-background hover:text-background hover:bg-secondary w-full !rounded-xl"
+        className="fixed bottom-16 right-4 bg-secondary text-background hover:text-background hover:bg-secondary h-[36px] w-[36px] rounded-full"
       >
-        Create Custom Metrics
+        <Plus height={24} width={24} /> 
       </Button>
+
     </div>
   );
 };

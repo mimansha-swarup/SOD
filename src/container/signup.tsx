@@ -39,7 +39,7 @@ const SignUpContainer = () => {
   };
 
   return (
-    <div className=" flex flex-col  justify-between pt-12 pb-16 h-[calc(screen - h-8)]">
+    <div className=" flex flex-col  justify-between pt-12 pb-16 h-screen">
       <div className="flex flex-col">
         <h1 className="text-2xl text-primary font-bold text-center mb-2">
           Welcome to MetricTracker

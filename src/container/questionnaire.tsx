@@ -7,9 +7,7 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { QuestionnaireIds, questionnaireList } from "@/constants/questionnaire";
 import {
   completeQuestionnaire,
-  getUserData,
   updateUserCommunity,
-  updateUserCommunityArray,
 } from "@/lib/actions/users.action";
 import { getMasterCommunity } from "@/lib/features/community/community.slice";
 import { fetchMasterCommunity } from "@/lib/features/community/community.thunk";
@@ -24,10 +22,11 @@ import {
 import { getCommunityId } from "@/utils/tracker";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { ICharacter } from "@/types/feature/community";
 
 const INITIAL_RECORD = {
   [QuestionnaireIds.MANIFESTATION]: "",
-  [QuestionnaireIds.LEVEL]: "",
+  [QuestionnaireIds.LEVEL]: {} as ICharacter,
   [QuestionnaireIds.INCOME]: "",
   [QuestionnaireIds.GOAL]: "",
 };
@@ -40,7 +39,6 @@ const QuestionnaireContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data: selectedCommunity } = useAppSelector(getMasterCommunity);
-  console.log("selectedCommunity", selectedCommunity);
   const dispatch = useAppDispatch();
 
   const activeSlide = questionnaireList[currentSlide];
@@ -61,7 +59,16 @@ const QuestionnaireContainer = () => {
   const handleRecordChange =
     (fieldName: `${QuestionnaireIds}`) =>
     (event: React.ChangeEvent<HTMLInputElement> | string) => {
-      const value = typeof event !== "string" ? event?.target?.value : event;
+      let value: unknown =
+        typeof event !== "string" ? event?.target?.value : event;
+
+      if (fieldName === QuestionnaireIds.LEVEL) {
+        const obj = selectedCommunity?.characters?.filter(
+          (character) => character?.name === value
+        )?.[0];
+        value = obj;
+      }
+
       setRecord((prev) => ({
         ...prev,
         [fieldName]: value,
@@ -121,20 +128,25 @@ const QuestionnaireContainer = () => {
 
   const renderInput = (inputType: string) => {
     if (activeID === QuestionnaireIds.START) return;
+    const value = record?.[activeID];
     switch (inputType) {
-      case "Input":
+      case "Input": {
         return (
           <Input
             className="bg-foreground text-muted"
-            value={record?.[activeID]}
+            value={typeof value === "string" ? value : ""}
             onChange={handleRecordChange(activeID)}
             {...activeSlide.input}
           />
         );
+      }
 
-      case "Radio":
+      case "Radio": {
         return (
-          <RadioGroup>
+          <RadioGroup
+            value={typeof value !== "string" ? value.name : ""}
+            onValueChange={handleRecordChange(activeID)}
+          >
             {/* @ts-ignore */}
             {selectedCommunity?.characters?.map((character) => (
               <Label
@@ -155,12 +167,15 @@ const QuestionnaireContainer = () => {
             ))}
           </RadioGroup>
         );
+      }
 
       default:
         return <></>;
         break;
     }
   };
+
+  console.log("disabled", record, RECORD_KEYS, currentSlide);
 
   return (
     <div>
@@ -200,16 +215,17 @@ const QuestionnaireContainer = () => {
               Back
             </Button>
           )}
+
           <Button
             onClick={handleNext}
             className={cn(isFullBtn && "w-full")}
             loading={isLoading}
-            // disabled={
-            // currentSlide !== 0
-            // // @ts-ignore
-            //   ? !Boolean(record?.[RECORD_KEYS?.[currentSlide]])
-            //   : false
-            // }
+            disabled={
+              currentSlide !== 0
+                ? // @ts-ignore
+                  !Boolean(record?.[RECORD_KEYS?.[currentSlide - 1]])
+                : false
+            }
           >
             {isFullBtn ? activeSlide.id : "Next"}
           </Button>
