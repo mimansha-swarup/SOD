@@ -4,15 +4,19 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Home, User, LineChart, Linkedin } from "lucide-react";
 
+const navItems = [
+  { icon: Home, label: "Home", href: "/" },
+  {
+    icon: LineChart,
+    label: "Tracker",
+    href: "/tracker",
+    subPaths: ["/configure", "/add-metrics"],
+  },
+  // { icon: Linkedin, label: "Network", href: "/network" },
+  { icon: User, label: "Profile", href: "/profile" },
+];
 const Navbar = () => {
   const pathname = usePathname();
-
-  const navItems = [
-    { icon: Home, label: "Home", href: "/" },
-    { icon: LineChart, label: "Tracker", href: "/tracker" },
-    // { icon: Linkedin, label: "Network", href: "/network" },
-    { icon: User, label: "Profile", href: "/profile" },
-  ];
 
   return (
     <nav className="fixed bottom-1.5 h-12  right-1/2 backdrop-blur-md border border-foreground/80  bg-background/80 p-1 w-[85%] rounded-2xl translate-x-1/2 ">
@@ -20,7 +24,9 @@ const Navbar = () => {
         <div className="flex  items-center h-full">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href;
+            const isActive =
+              pathname === item.href ||
+              (item.subPaths || []).includes(pathname);
 
             return (
               <Link
