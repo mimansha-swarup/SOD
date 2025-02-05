@@ -22,7 +22,7 @@ export const onGoogleSignIn =
     const token = await googleSignIn();
 
     onAuthStateChanged(auth, async(user)=>{
-      console.log("user")
+      console.log("user", user)
 
       if (user) {
         const { displayName, photoURL, email, uid } = user;
