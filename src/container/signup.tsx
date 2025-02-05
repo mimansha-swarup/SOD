@@ -59,7 +59,6 @@ const SignUpContainer = () => {
           loading={isLoading}
           onClick={async () => {
             setIsLoading(true);
-            console.log("Hello");
             onGoogleSignIn({ community, onSuccessfulLogin })();
           }}
           className="py-4 w-full rounded-lg bg-primary "

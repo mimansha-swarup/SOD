@@ -4,6 +4,7 @@ import { auth } from "@/lib/firebase";
 import {
   browserSessionPersistence,
   GoogleAuthProvider,
+  onAuthStateChanged,
   setPersistence,
   signInWithPopup,
 } from "firebase/auth";
@@ -17,17 +18,19 @@ export const onGoogleSignIn =
     onSuccessfulLogin: () => void;
   }) =>
   async () => {
-    console.log("Helllo asdfe");
-    const token = await googleSignIn();
-    console.log("token", token);
-    const user = auth.currentUser;
-    if (user) {
-      const { displayName, photoURL, email, uid } = user;
-      await createNewUSer({ displayName, photoURL, email, uid, community });
-      await onSuccessfulLogin?.();
-    }
 
-    return user;
+    const token = await googleSignIn();
+
+    onAuthStateChanged(auth, async(user)=>{
+      console.log("user")
+
+      if (user) {
+        const { displayName, photoURL, email, uid } = user;
+        await createNewUSer({ displayName, photoURL, email, uid, community });
+        await onSuccessfulLogin?.();
+      }
+    }
+    )
   };
 export const googleSignIn = async () => {
   const provider = new GoogleAuthProvider();

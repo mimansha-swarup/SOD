@@ -76,6 +76,7 @@ const QuestionnaireContainer = () => {
     };
 
   const updateData = async () => {
+    console.log("userId from FInish onCLicke: ", userId);
     setIsLoading(true);
     const data = {
       income: record[QuestionnaireIds.INCOME],
@@ -93,9 +94,9 @@ const QuestionnaireContainer = () => {
       community: getCommunityId(),
     });
     removeSessionStorage({ fieldName: "questionnaire" });
-    setIsLoading(false);
     setRecord(INITIAL_RECORD);
     router.push("/");
+    setIsLoading(false);
   };
 
   const handleNext = async () => {
@@ -174,8 +175,6 @@ const QuestionnaireContainer = () => {
         break;
     }
   };
-
-  console.log("disabled", record, RECORD_KEYS, currentSlide);
 
   return (
     <div>
