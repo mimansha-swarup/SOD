@@ -101,7 +101,7 @@ export const createNewUSer = async ({
           community,
           uid,
         }),
-      ]);
+      ]).catch((error) => console.log("promise.all error", error));
     } else {
       addNewMemberInCommunity({
         userData: userSnapshot.data() as IUser,
