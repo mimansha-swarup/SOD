@@ -178,7 +178,7 @@ const QuestionnaireContainer = () => {
 
   return (
     <div>
-      <div className="h-screen pt-8 flex flex-col">
+      <div className="h-dvh pt-8 flex flex-col">
         <div className="flex gap-4 mb-8">
           {questionnaireList.map((_, index) => (
             <Button

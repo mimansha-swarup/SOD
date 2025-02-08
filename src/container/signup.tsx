@@ -39,15 +39,15 @@ const SignUpContainer = () => {
   };
 
   return (
-    <div className=" flex flex-col  justify-between pt-12 pb-16 h-screen">
+    <div className=" flex flex-col  justify-between pt-12 pb-16 h-dvh">
       <div className="flex flex-col">
         <h1 className="text-2xl text-primary font-bold text-center mb-2">
           Welcome to MetricTracker
         </h1>
         <p className="text-xs text-muted-foreground text-center mb-4 ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio animi
-          fuga aperiam, non atque cumque quia quasi sunt magni corporis eaque,
-          debitis, officiis necessitatibus? Quam a sit ad explicabo soluta?
+          Track your daily progress and stay on course to achieve your
+          goals—whether it's a 90-day job switch or any personal milestone. Join
+          our community and start your journey today!
         </p>
         <div className="w-full h-60 relative ">
           <Image src="/skill.svg" alt="signup" fill objectFit="contain" />
