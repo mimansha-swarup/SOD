@@ -160,6 +160,7 @@ export const createCommunityInNewUser = async ({ uid, docId }: ActionProps) => {
     desiredIncome: 0,
     manifestation: "I want to be rich",
     currentLevel: "Level 0",
+    lastActivity:"",
     streak: 0,
     isPaid: docId !== "DEFAULT" || DEFAULT_COMMUNITY,
   });

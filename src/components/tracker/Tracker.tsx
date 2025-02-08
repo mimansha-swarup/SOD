@@ -36,7 +36,7 @@ const Tracker = ({
     setSelectedMetrics([...metrics]);
   };
   const handleCheckBoxChange = (metricId: string) => (event: CheckedState) => {
-    console.log("event", event);
+
     handleMetricValueChange(metricId, `${event}`);
   };
   const handleInputChange =
@@ -51,15 +51,14 @@ const Tracker = ({
       trackingData: selectedMetrics,
       date: createDateKey(today),
     };
-    console.log("")
-    // await dispatch(
-    //   saveUsersTrackingData({
-    //     userId: auth?.currentUser?.uid ?? "",
-    //     communityId: getCommunityId(),
-    //     body: JSON.stringify(body),
-    //   })
-    // );
-    // dispatch(popBottomSheet());
+    await dispatch(
+      saveUsersTrackingData({
+        userId: auth?.currentUser?.uid ?? "",
+        communityId: getCommunityId(),
+        body: JSON.stringify(body),
+      })
+    );
+    dispatch(popBottomSheet());
   };
   return (
     <div className="px-2 flex flex-col justify-between h-full pb-12">

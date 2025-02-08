@@ -1,14 +1,14 @@
 "use client";
-import { randomNumberGenerator } from "./configure";
 import { ChartData, plugins } from "chart.js";
 import { ChartOptions } from "chart.js";
 import {
-  IMetricsArray,
   IMetricsTrackingObject,
   ITrackingObject,
+  IUsersCommunity,
 } from "@/types/feature/user";
 import { DEFAULT_COMMUNITY } from "@/constants/tracker";
-import { title } from "process";
+import { createDateKey, greaterThanToday, lessThanToday } from "./calendar";
+import { updateUserCommunity } from "@/lib/actions/users.action";
 
 export const getCommunityId = () => {
   if (typeof window !== "undefined") {
@@ -176,4 +176,40 @@ export const getLast7DaysData = (data: ITrackingObject) => {
   }
 
   return result;
+};
+
+export const calculateStreak = (
+  userRecord: IUsersCommunity,
+  { userId, communityId }: { userId: string; communityId: string },
+  currentDate: string
+) => {
+  if (userRecord.lastActivity === currentDate) {
+    return;
+  }
+
+  const yesterday = new Date();
+
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = createDateKey(yesterday);
+  let streak = userRecord.streak;
+  let streakTrend = "";
+
+  if (userRecord.lastActivity === yesterdayStr || !userRecord.lastActivity) {
+    streak += 1;
+    streakTrend = "up";
+  } else {
+    streak = Math.max(0, streak - 1);
+    streakTrend = "down";
+  }
+
+  const body = {
+    streak,
+    streakTrend,
+    lastActivity: currentDate,
+  };
+  updateUserCommunity({
+    uid: userId,
+    community: communityId,
+    dataToUpdate: body,
+  });
 };

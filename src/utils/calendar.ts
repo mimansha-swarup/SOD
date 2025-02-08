@@ -34,6 +34,9 @@ export const compareDates = (date1: Date, date2: Date) =>
 export const greaterThanToday = (today: Date, date: Date) => {
   return date.getTime() > today.getTime();
 };
+export const lessThanToday = (today: Date, date: Date) => {
+  return date.getTime() < today.getTime();
+};
 const addZero = (number: number) => {
   return number < 10 ? `0${number}` : `${number}`;
 };

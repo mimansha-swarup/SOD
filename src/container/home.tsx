@@ -4,13 +4,13 @@ import Bento from "@/components/home/Bento";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAppSelector } from "@/lib/store";
 import { getUser, getUsersCommunity } from "@/lib/features/user/user.slice";
-// import DailyProgress from "@/components/home/DailyProgress";
+import DailyProgress from "@/components/home/DailyProgress";
 
 const HomeContainer = () => {
   const { data: userRecord } = useAppSelector(getUser);
   const { data: usersCommunity } = useAppSelector(getUsersCommunity);
   const FName = userRecord?.name?.split(" ")?.[0] ?? "";
-  
+
   return (
     <div className="h-[calc(screen - h-8)]">
       <div className="flex mb-4 items-center gap-2 px-4">
@@ -20,7 +20,7 @@ const HomeContainer = () => {
         </Avatar>
         <p className=" text-sm font-semibold ">Hello, {FName}!</p>
       </div>
-      {/* <DailyProgress progress={45} /> */}
+      <DailyProgress />
       <AuroraHero manifestation={usersCommunity?.manifestation} />
 
       <Bento />

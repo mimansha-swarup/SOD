@@ -33,6 +33,7 @@ export interface IUsersCommunity {
   character: ICharacter;
   currentLevel: string;
   desiredIncome: string;
+  lastActivity: string;
   income: string;
   isPaid: boolean;
   joinedAt: {};

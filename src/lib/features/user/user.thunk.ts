@@ -5,7 +5,7 @@ import { baseFetch } from "@/utils/network";
 import { RootState } from "@/lib/store";
 import { IUser, IUsersCommunity, IUsersMetrics } from "@/types/feature/user";
 import { fetchMasterMetrics } from "../community/community.thunk";
-import { getCommunityId } from "@/utils/tracker";
+import { calculateStreak, getCommunityId } from "@/utils/tracker";
 
 export const fetchUser = createAsyncThunk(
   "userRecord/user",
@@ -144,6 +144,7 @@ export const saveUsersTrackingData = createAsyncThunk(
       const communityIds =
         communityId ||
         state?.userRecord?.user?.data?.communities?.[0]?.community;
+      const userRecord = state.userRecord.community.data;
       const userMetricData = await baseFetch<{ data: IUsersMetrics }>({
         method: HTTP_METHODS.POST,
         body: body,
@@ -152,13 +153,18 @@ export const saveUsersTrackingData = createAsyncThunk(
           communityIds
         ),
       });
+      calculateStreak(
+        userRecord,
+        { userId, communityId },
+        // @ts-ignore
+        JSON.parse(body).date
+      );
 
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       await dispatch(
         fetchUsersMetric({ userId, communityId: getCommunityId() })
       );
-
       return userMetricData.data;
     } catch (error) {
       console.log("error: ", (error as Error)?.message);
