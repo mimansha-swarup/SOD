@@ -41,10 +41,10 @@ const ProfileContainer = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="bg-white/10 flex py-2.5 px-4 rounded-md backdrop-blur border border-white/20 ">
+        {/* <div className="bg-white/10 flex py-2.5 px-4 rounded-md backdrop-blur border border-white/20 ">
           <p className=" basis-1/2">My streak</p>
           <p className=" basis-1/2">: {usersCommunityRecord?.streak}</p>
-        </div>
+        </div> */}
         <div className="bg-white/10 flex py-2.5 px-4 rounded-md backdrop-blur border border-white/20 ">
           <p className=" basis-1/2">Switch community</p>
           <Select

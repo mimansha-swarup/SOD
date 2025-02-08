@@ -1,6 +1,8 @@
 import { setAuthCookie } from "@/lib/actions/cookie.action";
 import { createNewUSer } from "@/lib/actions/users.action";
+import { pushToast } from "@/lib/features/toast/toast.slice";
 import { auth } from "@/lib/firebase";
+import { globalDispatch } from "@/lib/store";
 import {
   browserSessionPersistence,
   GoogleAuthProvider,
@@ -18,19 +20,28 @@ export const onGoogleSignIn =
     onSuccessfulLogin: () => void;
   }) =>
   async () => {
+    try {
+      const token = await googleSignIn();
 
-    const token = await googleSignIn();
+      onAuthStateChanged(auth, async (user) => {
+        console.log("user", user);
 
-    onAuthStateChanged(auth, async(user)=>{
-      console.log("user", user)
-
-      if (user) {
-        const { displayName, photoURL, email, uid } = user;
-        await createNewUSer({ displayName, photoURL, email, uid, community });
-        await onSuccessfulLogin?.();
-      }
+        if (user) {
+          const { displayName, photoURL, email, uid } = user;
+          await createNewUSer({ displayName, photoURL, email, uid, community });
+          await onSuccessfulLogin?.();
+        }
+      });
+    } catch (error) {
+      globalDispatch(
+        pushToast({
+          type: "error",
+          message: `${JSON.stringify(error)}  ||||||||  ${
+            (error as Error)?.message
+          }`,
+        })
+      );
     }
-    )
   };
 export const googleSignIn = async () => {
   const provider = new GoogleAuthProvider();

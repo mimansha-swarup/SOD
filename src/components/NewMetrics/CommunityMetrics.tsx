@@ -64,7 +64,7 @@ const CommunityMetrics = () => {
   };
 
   if (isLoading || isUserMetricLoading) {
-    return <MetricListShimmer showButton noOfMetrics={8} />;
+    return <MetricListShimmer noOfMetrics={9} />;
   }
 
   return (
@@ -122,9 +122,8 @@ const CommunityMetrics = () => {
         onClick={openCreateMetricBs}
         className="fixed bottom-16 right-4 bg-secondary text-background hover:text-background hover:bg-secondary h-[36px] w-[36px] rounded-full"
       >
-        <Plus height={24} width={24} /> 
+        <Plus height={24} width={24} />
       </Button>
-
     </div>
   );
 };

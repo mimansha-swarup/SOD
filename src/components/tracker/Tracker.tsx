@@ -51,19 +51,20 @@ const Tracker = ({
       trackingData: selectedMetrics,
       date: createDateKey(today),
     };
-    await dispatch(
-      saveUsersTrackingData({
-        userId: auth?.currentUser?.uid ?? "",
-        communityId: getCommunityId(),
-        body: JSON.stringify(body),
-      })
-    );
-    dispatch(popBottomSheet());
+    console.log("")
+    // await dispatch(
+    //   saveUsersTrackingData({
+    //     userId: auth?.currentUser?.uid ?? "",
+    //     communityId: getCommunityId(),
+    //     body: JSON.stringify(body),
+    //   })
+    // );
+    // dispatch(popBottomSheet());
   };
   return (
     <div className="px-2 flex flex-col justify-between h-full pb-12">
       <div className="overflow-auto">
-        {selectedMetrics?.length &&
+        {!!selectedMetrics.length ? (
           selectedMetrics.map((item) => (
             <div
               key={item.id || item.name}
@@ -83,12 +84,18 @@ const Tracker = ({
                 />
               )}
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="h-40 flex justify-center items-center">
+            <p>No tracked metrics</p>
+          </div>
+        )}
       </div>
       <Button
         className="mt-auto  bg-gradient-to-r from-secondary to-accent w-full text-background "
         onClick={saveTracking}
         loading={isLoading}
+        disabled={!selectedMetrics.length}
       >
         Track
       </Button>

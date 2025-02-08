@@ -40,7 +40,7 @@ const ShowBS: React.FC<Partial<BottomSheetProps>> = ({
         {...restProps}
         key={bs?.sheetName}
       >
-        <SheetTitle className="text-accent mb-6">
+        <SheetTitle className="text-white mb-6">
           {bs?.title || "Bottom Sheet"}
         </SheetTitle>
         {/* @ts-ignore */}

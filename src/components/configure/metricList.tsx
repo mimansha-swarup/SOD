@@ -16,6 +16,7 @@ import { fetchUsersMetric } from "@/lib/features/user/user.thunk";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import MetricListShimmer from "../shimmers/MetricList";
 import { useRouter } from "next/navigation";
+import { pushToast } from "@/lib/features/toast/toast.slice";
 
 const MetricList = () => {
   const dispatch = useAppDispatch();
@@ -63,6 +64,7 @@ const MetricList = () => {
 
   const navigateToCommunityMetrics = () => {
     router.push("/add-metrics");
+    // dispatch(pushToast({ type: "success", message: "Hello" }));
   };
 
   if (isLoading) {

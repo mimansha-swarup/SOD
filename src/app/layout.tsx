@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./index.css";
+import StoreProvider from "./StateProvider";
+import ToastContainer from "@/components/shared/ToastContainer";
+import ShowBS from "@/components/shared/ShowBS";
 
 const font = Readex_Pro({
   weight: ["200", "300", "400", "500", "600", "700"],
@@ -23,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.style.fontFamily} flex text-foreground dark `}>
-        <div className="max-w-[425px] m-auto w-screen ">
-          {children}
-        </div>
+        <StoreProvider>
+          <div className="max-w-[425px] m-auto w-screen ">{children}</div>
+          <ToastContainer />
+          <ShowBS/>
+        </StoreProvider>
       </body>
     </html>
   );

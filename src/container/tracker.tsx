@@ -1,7 +1,6 @@
 "use client";
 import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import WeekSlider from "@/components/tracker/weekSlider";
-import ShowBS from "@/components/shared/ShowBS";
 import { createMappingData } from "@/utils/tracker";
 import BarChart from "@/components/tracker/BarChart";
 import TrackerButton from "@/components/tracker/TrackerButton";
@@ -59,7 +58,6 @@ const TrackerContainer = () => {
 
   return (
     <div className="relative">
-      <ShowBS />
       <PageHeader
         title="Tracker"
         className="mb-6"

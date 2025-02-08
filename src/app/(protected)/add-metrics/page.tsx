@@ -1,10 +1,6 @@
 "use client";
-import MetricList from "@/components/configure/metricList";
 import React from "react";
-import ShowBS from "@/components/shared/ShowBS";
 import PageHeader from "@/components/shared/PageHeader";
-import { Button } from "@/components/ui/button";
-import { Cross, CrossIcon, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CommunityMetrics from "@/components/NewMetrics/CommunityMetrics";
 
@@ -19,9 +15,6 @@ const ConfigurePage = () => {
       <PageHeader title="Add New Metrics" />
 
       <CommunityMetrics />
-
-      <ShowBS />
-      
     </div>
   );
 };

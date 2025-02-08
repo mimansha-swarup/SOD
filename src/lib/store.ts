@@ -2,14 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import bottomSheetReducer from "./features/bottomsheet/bottomsheet.slice";
 import userReducer from "./features/user/user.slice";
-import CommunityReducer from "./features/community/community.slice";
+import communityReducer from "./features/community/community.slice";
+import toastReducer from "./features/toast/toast.slice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       bottomSheet: bottomSheetReducer,
       userRecord: userReducer,
-      masterCommunity: CommunityReducer,
+      masterCommunity: communityReducer,
+      toast: toastReducer,
     },
   });
 };
@@ -27,3 +29,8 @@ export type AppDispatch = AppStore["dispatch"];
 export const useAppDispatch = useDispatch?.withTypes<AppDispatch>?.();
 export const useAppSelector = useSelector?.withTypes<RootState>?.();
 export const useAppStore = useStore?.withTypes<AppStore>?.();
+
+export const store = makeStore();
+
+// Use this for any non-component code that needs store access
+export const globalDispatch = store.dispatch;
