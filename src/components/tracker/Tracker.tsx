@@ -21,6 +21,7 @@ const Tracker = ({
   const [selectedMetrics, setSelectedMetrics] = useState<
     IMetricsTrackingObject[]
   >([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector(getUsersMetrics);
 
@@ -36,7 +37,6 @@ const Tracker = ({
     setSelectedMetrics([...metrics]);
   };
   const handleCheckBoxChange = (metricId: string) => (event: CheckedState) => {
-
     handleMetricValueChange(metricId, `${event}`);
   };
   const handleInputChange =
@@ -45,6 +45,8 @@ const Tracker = ({
     };
 
   const saveTracking = async () => {
+    setLoading(true);
+    console.log(loading)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const body = {
@@ -58,6 +60,7 @@ const Tracker = ({
         body: JSON.stringify(body),
       })
     );
+    setLoading(false);
     dispatch(popBottomSheet());
   };
   return (
@@ -93,7 +96,7 @@ const Tracker = ({
       <Button
         className="mt-auto  bg-gradient-to-r from-secondary to-accent w-full text-background "
         onClick={saveTracking}
-        loading={isLoading}
+        loading={isLoading || loading}
         disabled={!selectedMetrics.length}
       >
         Track
