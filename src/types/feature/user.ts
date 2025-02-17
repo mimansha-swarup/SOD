@@ -40,6 +40,7 @@ export interface IUsersCommunity {
   manifestation: string;
   streak: number;
   path: [];
+
 }
 export interface IUsersMetrics {
   metrics: IMetricsArray[];

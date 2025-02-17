@@ -32,6 +32,7 @@ const initialState: IUserRecordState = {
       joinedAt: "",
       streak: 0,
       path: [],
+      lastActivity:""
     },
     isLoading: true,
   },
