@@ -9,7 +9,7 @@ export const questionnaireList = [
   {
     id: QuestionnaireIds.START,
     title: "Welcome to Metric Tracker",
-    description: "lorem ipsum",
+    description: "One Goal, 100 Days, Endless Possibilities!",
   },
   {
     id: QuestionnaireIds.MANIFESTATION,
@@ -27,8 +27,7 @@ export const questionnaireList = [
     title: "Where do you stand?",
     description: "",
     inputType: "Radio",
-    options: [
-    ],
+    options: [],
   },
   {
     id: QuestionnaireIds.INCOME,

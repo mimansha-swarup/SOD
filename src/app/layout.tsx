@@ -5,6 +5,7 @@ import "./index.css";
 import StoreProvider from "./StateProvider";
 import ToastContainer from "@/components/shared/ToastContainer";
 import ShowBS from "@/components/shared/ShowBS";
+import AuthRedirect from "@/components/shared/AuthRedirect";
 
 const font = Readex_Pro({
   weight: ["200", "300", "400", "500", "600", "700"],
@@ -29,7 +30,8 @@ export default function RootLayout({
         <StoreProvider>
           <div className="max-w-[425px] m-auto w-screen ">{children}</div>
           <ToastContainer />
-          <ShowBS/>
+          <ShowBS />
+          <AuthRedirect />
         </StoreProvider>
       </body>
     </html>

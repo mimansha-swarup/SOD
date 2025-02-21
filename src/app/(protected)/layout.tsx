@@ -12,15 +12,10 @@ const Layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  // const userId = auth.currentUser?.uid ?? "";
-  // console.log("userId", userId);
-  // const cookieStore = cookies();
 
-  // console.log("asdasdasd", auth.currentUser?.uid);
 
   return (
     <>
-      <AuthRedirect />
       <div className="max-w-[425px] m-auto py-4 w-screen ">{children}</div>
       <Navbar />
       <BgSvg />

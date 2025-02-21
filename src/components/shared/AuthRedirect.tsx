@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/lib/firebase"; 
+import { auth } from "@/lib/firebase";
 
 export default function AuthRedirect() {
   const router = useRouter();
@@ -11,12 +11,14 @@ export default function AuthRedirect() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
-        router.push("/signup"); 
+        router.push("/signup");
+      } else {
+        router.push("/");
       }
     });
 
     return () => unsubscribe();
   }, [router]);
 
-  return null; 
+  return null;
 }

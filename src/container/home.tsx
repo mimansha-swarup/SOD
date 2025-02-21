@@ -5,11 +5,16 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAppSelector } from "@/lib/store";
 import { getUser, getUsersCommunity } from "@/lib/features/user/user.slice";
 import DailyProgress from "@/components/home/DailyProgress";
+import HomeContainerShimmer from "@/components/shimmers/HomeContainer";
 
 const HomeContainer = () => {
-  const { data: userRecord } = useAppSelector(getUser);
-  const { data: usersCommunity } = useAppSelector(getUsersCommunity);
+  const { data: userRecord, isLoading: isUserLoading } =
+    useAppSelector(getUser);
+  const { data: usersCommunity, isLoading: isCommunityLoading } =
+    useAppSelector(getUsersCommunity);
   const FName = userRecord?.name?.split(" ")?.[0] ?? "";
+
+  if (isUserLoading || isCommunityLoading) return <HomeContainerShimmer />;
 
   return (
     <div className="h-[calc(screen - h-8)]">
